@@ -1,0 +1,75 @@
+a)  Describir el concepto de digitalización.
+
+  La digitalización es el proceso de transformar información, procesos y actividades analógicas en formatos digitales mediante el uso de tecnologías informáticas. Implica capturar datos, automatizar tareas y optimizar operaciones a través de herramientas digitales como software, sensores, inteligencia artificial o sistemas en la nube. Su objetivo es mejorar la eficiencia, reducir errores y facilitar la toma de decisiones basada en datos.
+
+b)  Relacionar la implantación de las tecnologías digitales con la organización de las empresas.
+
+  La implantación de tecnología digital transforma la organización interna de las empresas al modificar su estructura, procesos y cultura. Permite automatizar tareas, mejorar la comunicación interna y optimizar la gestión de recursos. Las jerarquías tienden a ser más horizontales, los flujos de información más rápidos y las decisiones más basadas en datos. También impulsa nuevas formas de trabajo colaborativo y la necesidad de desarrollar competencias digitales en el personal.
+
+
+c)  Reconocer las diferencias y similitudes entre entornos IT y OT.
+
+  Definiciones:
+    - IT (Information Technology): gestiona datos, software, redes y sistemas de información. Su enfoque es la administración, análisis y protección de la información.
+    - OT (Operational Technology): controla y supervisa procesos físicos, maquinaria e infraestructura industrial. Su enfoque es la operación y seguridad de los equipos en tiempo real.
+
+  Diferencias:
+    - Prioridades: IT prioriza la confidencialidad y disponibilidad de datos; OT prioriza la seguridad y continuidad operacional.
+    - Entornos: IT trabaja con redes corporativas y sistemas administrativos; OT con sistemas industriales como SCADA, PLC o DCS.
+
+  Similitudes:
+    - Ambas usan redes, sensores y servidores.
+    - Ambas buscan eficiencia, seguridad y continuidad operativa.
+    - La convergencia IT/OT permite la industria 4.0, integrando datos empresariales con procesos productivos para una gestión unificada.
+
+d)  Identificar los departamentos típicos de las empresas que puedan constituir entornos IT.
+
+  Departamentos típicos que constituyen entornos IT en una empresa:
+    - Departamento de Sistemas o Tecnología de la Información: gestiona servidores, redes, hardware y soporte técnico.
+    - Departamento de Desarrollo de Software: crea, mantiene y actualiza aplicaciones internas o productos digitales.
+    - Departamento de Seguridad Informática: protege la infraestructura digital frente a ciberamenazas.
+    - Departamento de Análisis de Datos o Business Intelligence: gestiona bases de datos y analiza información para apoyar decisiones.
+    - Departamento de Soporte Técnico o Help Desk: atiende incidencias y mantiene operativos los sistemas informáticos.
+    - Departamento de Infraestructura o Redes: administra conectividad, almacenamiento y centros de datos.
+
+e)  Seleccionar las tecnologías típicas de la digitalización en planta y en negocio.
+
+  Tecnologías típicas de digitalización en planta (OT):
+    - Sensores IoT: capturan datos de máquinas y procesos en tiempo real.
+    - Sistemas SCADA y PLC: controlan y supervisan equipos industriales.
+    - Robótica y automatización: ejecutan tareas repetitivas con precisión.
+    - Gemelos digitales (Digital Twins): simulan el comportamiento de equipos o líneas de producción.
+    - Mantenimiento predictivo: usa inteligencia artificial para anticipar fallos.
+    - Realidad aumentada (AR): asiste a operarios en mantenimiento o formación.
+
+  Tecnologías típicas de digitalización en negocio (IT):
+    - ERP (Enterprise Resource Planning): integra finanzas, logística, producción y recursos humanos.
+    - CRM (Customer Relationship Management): gestiona relaciones con clientes.
+    - Big Data y analítica avanzada: permite decisiones basadas en datos.
+    - Cloud Computing: facilita acceso remoto y escalabilidad de sistemas.
+    - Ciberseguridad: protege la información empresarial.
+    - Inteligencia Artificial y Machine Learning: optimizan procesos administrativos y comerciales.
+
+f)  Analizar  la importancia de la conexión entre entornos IT y OT.
+
+  La conexión entre entornos IT y OT es esencial para la Industria 4.0, ya que permite unir los datos operativos de planta con la información empresarial. Esta integración ofrece una visión completa del negocio, mejora la toma de decisiones y optimiza recursos.
+
+  Aspectos clave:
+    - Eficiencia operativa: los datos en tiempo real de producción permiten ajustar planificación, mantenimiento y logística.
+    - Mantenimiento predictivo: al integrar sensores OT con análisis IT, se detectan fallos antes de que ocurran.
+    - Calidad y trazabilidad: la información fluye desde la máquina hasta el sistema de gestión, garantizando control total del proceso.
+    - Flexibilidad y personalización: facilita adaptar la producción según la demanda o preferencias del cliente.
+    - Reducción de costes: disminuye tiempos de inactividad y errores humanos.
+    - Ciberseguridad unificada: una integración controlada mejora la protección de redes industriales y corporativas.
+
+g)  Ser consciente de las ventajas de digitalizar una empresa industrial de extremo a extremo.
+
+  Ventajas de digitalizar una empresa industrial de extremo a extremo:
+    - Visión integral del negocio: todos los procesos, desde compras hasta distribución, quedan conectados y visibles en tiempo real.
+    - Eficiencia operativa: la automatización reduce tiempos, errores y desperdicios.
+    - Mantenimiento predictivo: los datos de planta permiten anticipar fallos y optimizar la disponibilidad de equipos.
+    - Optimización de la cadena de suministro: mejora la planificación, el control de inventarios y la respuesta ante cambios en la demanda.
+    - Decisiones basadas en datos: la analítica avanzada y la IA permiten decisiones rápidas y precisas.
+    - Personalización y flexibilidad: facilita adaptar productos o procesos según las necesidades del mercado.
+    - Sostenibilidad: optimiza consumo energético y reduce el impacto ambiental.
+    - Competitividad: incrementa la productividad y acelera la innovación.
