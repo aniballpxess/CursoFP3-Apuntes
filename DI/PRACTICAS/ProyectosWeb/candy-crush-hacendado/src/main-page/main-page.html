@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>main-page</title>
+    <link rel="stylesheet" href="main-page.css" />
+    <script src="main-page.js" type="text/Javascript" defer></script>
+  </head>
+  <body>
+    <div class="container main">
+      <!-- Left Panel -->
+      <div class="container left-sidebar">
+        <div class="element title" id="main_title">Candy<br />Crush</div>
+        <button class="element button" id="btn_newGame">New Game</button>
+      </div>
+
+      <!-- Game Board -->
+      <div class="container" id="game_board"></div>
+
+      <!-- Controls -->
+      <div class="container right-sidebar">
+        <div class="container" id="move_input">
+          <label class="label" for="move">Move:</label>
+          <input type="text" id="move" />
+        </div>
+        <div class="container arrows">
+          <button class="element arrow button" id="btn_arrowUp">&uarr;</button>
+          <button class="element arrow button" id="btn_arrowLeft">&larr;</button>
+          <button class="element arrow button" id="btn_arrowRight">&rarr;</button>
+          <button class="element arrow button" id="btn_arrowDown">&darr;</button>
+        </div>
+        <button class="element button" id="btn_crush" disabled>Crush Once</button>
+      </div>
+    </div>
+  </body>
+</html>

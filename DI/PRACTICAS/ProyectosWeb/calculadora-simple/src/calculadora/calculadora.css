@@ -1,0 +1,106 @@
+/* Layout container for the calculator */
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #ececec;
+  font-family: Arial, sans-serif;
+}
+.calculator {
+  display: grid;
+  grid-template-rows: auto auto auto auto;
+  gap: 0.4rem;
+  padding: 1.5rem;
+  background: #9dbfff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  width: fit-content;
+}
+
+/* Power section */
+.power {
+  display: flex;
+  justify-content: start;
+  font-weight: bold;
+  column-gap: 0.8rem;
+}
+#power-off,
+#power-on {
+  cursor: pointer;
+}
+
+/* Displays */
+.display {
+  width: 400px;
+  height: 40px;
+  text-align: right;
+  font-size: 3rem;
+  font-weight: bold;
+  color: #222;
+  border: 2px solid #444;
+  background-color: #888;
+  border-radius: 8px;
+  padding: 0.5rem;
+  cursor: default;
+}
+
+/* Numpad layout */
+.numpad-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.4rem;
+}
+
+/* BUTTONS */
+
+/* General */
+.button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+  background: #f0f0f0;
+  border: none;
+  padding: 1.2rem 0.8rem;
+  cursor: pointer;
+  font-weight: bold;
+  position: relative;
+}
+
+/* Label layouts */
+.button .main {
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+.button .sub {
+  font-size: 0.5rem;
+  color: #666;
+  line-height: 2;
+}
+
+/* Special buttons */
+.clear {
+  background: #ff6666;
+  border: 2px solid #444;
+}
+.submit {
+  background: #4caf50;
+  border: 2px solid #444;
+}
+
+/* Interactions */
+.button:disabled {
+  opacity: 0.5;
+  border: none;
+  cursor: not-allowed;
+}
+.button:hover {
+  background: #dcdcdc;
+}
+.clear:hover {
+  background: #e05555;
+}
+.submit:hover {
+  background: #449d48;
+}

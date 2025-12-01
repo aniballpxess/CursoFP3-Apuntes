@@ -1,0 +1,163 @@
+/* VISUAL CLASSES */
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, sans-serif;
+  background: #fff;
+  margin: 40px;
+}
+
+input {
+  width: 40px;
+  padding: 4px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.element {
+  width: fit-content;
+  height: fit-content;
+}
+
+.label {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: bold;
+  color: red;
+  line-height: 1;
+  text-align: center;
+}
+
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.button {
+  width: fit-content;
+  height: fit-content;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.button:enabled {
+  background-color: #aaa;
+  color: #222;
+  cursor: pointer;
+}
+
+.button:disabled {
+  background-color: #ddd;
+  color: #888;
+  cursor: not-allowed;
+}
+
+.button:active {
+  background-color: green;
+  color: white;
+}
+
+.arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+}
+
+/* STRUCTURE CLASSES */
+
+.element {
+  width: fit-content;
+  height: fit-content;
+}
+
+.container {
+  display: grid;
+}
+
+.main {
+  justify-items: center;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 100%;
+  gap: 8px;
+}
+
+/* Left panel */
+.left-sidebar {
+  justify-items: center;
+  grid-template-columns: 100%;
+  grid-template-rows: 1fr 1fr;
+  gap: 8px;
+}
+
+#main_title {
+  align-self: end;
+}
+
+#btn_newGame {
+  align-self: start;
+}
+
+/* Game board */
+#game_board {
+  grid-template-columns: repeat(8, 40px);
+  grid-template-rows: repeat(8, 40px);
+  gap: 2px;
+}
+
+/* Control panel */
+.right-sidebar {
+  justify-items: center;
+  grid-template-columns: 100%;
+  grid-template-rows: 1fr 2fr 1fr;
+  gap: 8px;
+}
+
+#move_input {
+  align-self: center;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 100%;
+}
+
+.arrows {
+  align-self: center;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 4px;
+}
+
+#btn_arrowUp {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+#btn_arrowLeft {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+#btn_arrowRight {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+#btn_arrowDown {
+  grid-column: 2;
+  grid-row: 3;
+}
+
+#btn_crush {
+  align-self: start;
+}
