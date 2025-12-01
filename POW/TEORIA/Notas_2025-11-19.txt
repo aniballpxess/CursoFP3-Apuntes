@@ -1,0 +1,16 @@
+SEO Phases
+    - Crawling
+    - Indexing
+    - Ranking?
+SEO best practices
+    - Monitor Google insights (as minimal as they may be)
+    - Continuous audit -> KPI (Key Performance Indicators) 
+    - User 1st (happy customers = more customers)
+    - Always test -> IMPORTANT: Smart testing
+    - Monitor trends, news and community
+SEO Google updates
+    - Core -> improvement of inner workings of SEO
+    - Spam -> censor bad-practices-based websites
+SEO tools
+    - Google Search Console
+    - Lighthouse (extension)

@@ -1,0 +1,17 @@
+Historia del SEO
+    Inicios ---- Uso de arañas para construir una imagen de la red
+    Mediados --- Red ya establecida uso de telemetria indices y robusted del conocimiento de la red
+    Ahora ------ Advenimiento de las IAs rompe con el statu quo
+Factores actuales del SEO
+    - Velocidad wen
+    - Uso de moviles
+    - Busqueda semántica
+    - Metodos avanzados (IA + ML)
+Tecnologías para la rebustez del SEO de Google
+    - Rank Brain
+    - BERT
+    - Geolocalización
+    - Spam Brain
+Tacticas/estrategias del técnico de SEO
+    - On-page SEO ---- (User-friendly)
+    - Off-page SEO --- (Trustworthiness)

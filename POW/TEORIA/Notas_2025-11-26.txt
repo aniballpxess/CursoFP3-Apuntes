@@ -1,0 +1,10 @@
+SEO algorithmic updates
+    - Content -> checks relevance, good/valuable info
+    - Technical -> checks technicals (quick load, easy nav, secure, use framework - React -)
+    - Links (off-site) -> checks high-value links, brand signals, etc
+YMYL (Your Money, Your Life) sites -> more effort to check EEAT (Experience, Expertise, Authoritativeness and Trustworthiness)
+    - Financial
+    - Medical
+    - Legal
+    - Banking
+    - Official/Governments

@@ -1,0 +1,26 @@
+SEO - Practicas llevadas a cabo en el desarrollo web que permiten una mejor visibilidad de las páginas/sitios web por parte de los motores de búsqueda.
+
+Antes de IA - La busqueda inicial la tienes que hacer tú
+Despues de la IA - La busqueda inicial te la hace la IA
+
+Cambios de Google Search (GS)
+    Búsquedas personalizadas mejoradas con IA
+    Mayor rapidéz de busqueda en ciertos ciscumstancias
+    Gran rango del tipo de contenido en los resultados de busqueda (paginas, articulos, videos, imagenes, etc)
+
+Negocio de GS
+    Posicionamiento pagado (promocionado)
+    Creación y venta de perfiles de usuarios
+
+Plantemaiento del SEO
+    Empezar por GS por ser el más popular
+    No descartar la optimización en otros buscadores (lo que funciona en GS no siempre funciona en otros)
+
+SEO como disciplina
+    Intersección entre marketing (ventas) y tecnología
+    Con el tiempo ha aparecido la necesidad de las subcontrata de especialistas en SEO en informática
+        Agencias
+        Rol interno
+        Autónomo
+        Consultora
+
