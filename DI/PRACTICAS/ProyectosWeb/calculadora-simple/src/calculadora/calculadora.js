@@ -81,7 +81,7 @@ let wrong_state = true;
 let last_pressed_key = undefined;
 
 // Functions
-function updateInterface() {
+function updateExternals() {
     switch (current_state) {
         case STATE.OFF:
             display_input.value = '';
@@ -158,65 +158,66 @@ function updateInterface() {
 // --- EVENT HANDLING ---
 
 // Power switching
-power_on.addEventListener(EVENT.CHANGE, () => testEventsHandler(ACTION.POWER_ON, power_on));
-power_off.addEventListener(EVENT.CHANGE, () => testEventsHandler(ACTION.POWER_OFF, power_off));
+power_on.addEventListener(EVENT.CHANGE, () => test_eventsHandler(ACTION.POWER_ON, power_on));
+power_off.addEventListener(EVENT.CHANGE, () => test_eventsHandler(ACTION.POWER_OFF, power_off));
 
 // Numpad buttons
-numpad_btn_1.addEventListener(EVENT.CLICK, () => testEventsHandler(ACTION.TYPE, numpad_btn_1));
-numpad_btn_2.addEventListener(EVENT.CLICK, () => testEventsHandler(ACTION.TYPE, numpad_btn_2));
-numpad_btn_3.addEventListener(EVENT.CLICK, () => testEventsHandler(ACTION.TYPE, numpad_btn_3));
-numpad_btn_4.addEventListener(EVENT.CLICK, () => testEventsHandler(ACTION.TYPE, numpad_btn_4));
-numpad_btn_5.addEventListener(EVENT.CLICK, () => testEventsHandler(ACTION.TYPE, numpad_btn_5));
-numpad_btn_6.addEventListener(EVENT.CLICK, () => testEventsHandler(ACTION.TYPE, numpad_btn_6));
-numpad_btn_7.addEventListener(EVENT.CLICK, () => testEventsHandler(ACTION.TYPE, numpad_btn_7));
-numpad_btn_8.addEventListener(EVENT.CLICK, () => testEventsHandler(ACTION.TYPE, numpad_btn_8));
-numpad_btn_9.addEventListener(EVENT.CLICK, () => testEventsHandler(ACTION.TYPE, numpad_btn_9));
-numpad_btn_0.addEventListener(EVENT.CLICK, () => testEventsHandler(ACTION.TYPE, numpad_btn_0));
+numpad_btn_1.addEventListener(EVENT.CLICK, () => test_eventsHandler(ACTION.TYPE, numpad_btn_1));
+numpad_btn_2.addEventListener(EVENT.CLICK, () => test_eventsHandler(ACTION.TYPE, numpad_btn_2));
+numpad_btn_3.addEventListener(EVENT.CLICK, () => test_eventsHandler(ACTION.TYPE, numpad_btn_3));
+numpad_btn_4.addEventListener(EVENT.CLICK, () => test_eventsHandler(ACTION.TYPE, numpad_btn_4));
+numpad_btn_5.addEventListener(EVENT.CLICK, () => test_eventsHandler(ACTION.TYPE, numpad_btn_5));
+numpad_btn_6.addEventListener(EVENT.CLICK, () => test_eventsHandler(ACTION.TYPE, numpad_btn_6));
+numpad_btn_7.addEventListener(EVENT.CLICK, () => test_eventsHandler(ACTION.TYPE, numpad_btn_7));
+numpad_btn_8.addEventListener(EVENT.CLICK, () => test_eventsHandler(ACTION.TYPE, numpad_btn_8));
+numpad_btn_9.addEventListener(EVENT.CLICK, () => test_eventsHandler(ACTION.TYPE, numpad_btn_9));
+numpad_btn_0.addEventListener(EVENT.CLICK, () => test_eventsHandler(ACTION.TYPE, numpad_btn_0));
 
 // Action buttons
-action_btn_c.addEventListener(EVENT.CLICK, () => testEventsHandler(ACTION.CLEAR_DISPLAY, action_btn_c));
-action_btn_s.addEventListener(EVENT.CLICK, () => testEventsHandler(ACTION.SEND_MESSAGE, action_btn_s));
+action_btn_c.addEventListener(EVENT.CLICK, () => test_eventsHandler(ACTION.CLEAR_DISPLAY, action_btn_c));
+action_btn_s.addEventListener(EVENT.CLICK, () => test_eventsHandler(ACTION.SEND_MESSAGE, action_btn_s));
 
 // -------------------------------------------------------------------------- //
 
 // --- INCIALIZE ---
 power_off.checked = true;
 power_on.checked = false;
-updateInterface(current_state);
+updateExternals(current_state);
 
 // --- TESTS ---
 /**
  * @param {ACTION} action
  * @param {HTMLInputElement | HTMLButtonElement} trigger
  */
-function testEventsHandler(action, trigger) {
+function test_eventsHandler(action, trigger) {
     switch (action) {
         case ACTION.POWER_ON:
-            testUpdateState(trigger);
-            updateInterface();
+            test_updateState(trigger);
+            test_updateInternals(action);
+            updateExternals();
             break;
 
         case ACTION.POWER_OFF:
-            testUpdateState(trigger);
-            updateInterface();
+            test_updateState(trigger);
+            updateExternals();
             typed_message = '';
             break;
 
         case ACTION.TYPE:
-            testUpdateState(trigger);
-            updateInterface();
+            test_updateState(trigger);
+            updateExternals();
             typed_message = typed_message + trigger.dataset.num;
             break;
 
         case ACTION.CLEAR_DISPLAY:
-            testUpdateState(trigger);
-            updateInterface();
+            test_updateState(trigger);
+            updateExternals();
             typed_message = '';
             break;
 
         case ACTION.SEND_MESSAGE:
-            testUpdateState(trigger);
-            updateInterface();
+            test_updateState(trigger);
+            updateExternals();
             break;
 
         default:
@@ -227,7 +228,7 @@ function testEventsHandler(action, trigger) {
 /**
  * @param {HTMLInputElement | HTMLButtonElement} trigger
  */
-function testUpdateState(trigger) {
+function test_updateState(trigger) {
     switch (current_state) {
         case STATE.OFF:
             switch (trigger) {
@@ -342,6 +343,22 @@ function testUpdateState(trigger) {
             break;
         default:
             console.log(`ERROR || Invalid state || Invalid state reached, current state value: '${current_state}'`);
+            break;
+    }
+}
+
+/**
+ * @param {ACTION} action
+ */
+function test_updateInternals(action) {
+    switch (current_state) {
+        case STATE.OFF:
+            break;
+        case STATE.CLEAR:
+            break;
+        case STATE.TYPING:
+            break;
+        case STATE.SENT:
             break;
     }
 }
