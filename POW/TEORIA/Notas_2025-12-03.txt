@@ -1,0 +1,10 @@
+Core Web Vitals -> Real-World Experience Metrics
+    - Page load time
+    - Site stability
+    - Site security (https)
+    - Intrusive messages (pop-ups)
+
+    Metricas relevantes
+        - LCP (Largest Contentful Paint)
+        - FID (First Input Delay)
+        - CLS (Cumulative Layout Shift)

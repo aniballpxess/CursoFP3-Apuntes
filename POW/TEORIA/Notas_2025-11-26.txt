@@ -2,9 +2,16 @@ SEO algorithmic updates
     - Content -> checks relevance, good/valuable info
     - Technical -> checks technicals (quick load, easy nav, secure, use framework - React -)
     - Links (off-site) -> checks high-value links, brand signals, etc
-YMYL (Your Money, Your Life) sites -> more effort to check EEAT (Experience, Expertise, Authoritativeness and Trustworthiness)
+YMYL* metric measures importance of:
     - Financial
     - Medical
     - Legal
     - Banking
     - Official/Governments
+    - Other (real-state, adoption, etc)
+EEAT** metric:
+    - measures how valid is the info given by a page
+    - it's restrictiveness is hardened based on YMYL metric
+
+ * Your Money, Your Life
+** Experience, Expertise, Authoritativeness and Trustworthiness
