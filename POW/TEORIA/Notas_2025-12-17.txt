@@ -1,0 +1,32 @@
+Featured Snippets
+    - Pos 0
+    - Used for voice search
+
+Rich Snippets (rich results)
+    - Star ratings
+    - Details
+    - Nav links
+
+Search Results Google (2019)
+    - 50% - 0-click
+    - 45% - organic
+    -  5% - paid
+
+Featured Snippets CTR Experiment
+    No Ft. Snippet
+        - 26% -> pos 1
+    Ft. Snippet (*)
+        -  9% -> pos 0
+        - 18% -> pos 1
+    (*) if you are featured (pos 0) you can't appear at the top of search 
+        (pos 1/2/3/...)
+
+Rich Results
+    Correct coding -> Google can show all info -> Free advertising
+
+schema.org
+    Web for how to structure your data for correct reading by Google. Backed by 
+    Microsoft, Google, Yandex and Yahoo to help websites standardize their data 
+    for easier reading and use by web searchers. Also accepting suggestions from 
+    the open dev community it has (usually based on real-life experience 
+    developing webs and structuring their data).
