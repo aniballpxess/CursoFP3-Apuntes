@@ -69,18 +69,16 @@ const EVENT = {
 const DEFAULT_STATE = STATE.OFF;
 
 // Variables
-/** @type {string} */
-let typed_message = '';
 /** @type {STATE} */
 let current_state = STATE.OFF;
+/** @type {string} */
+let typed_message = '';
+/** @type {HTMLInputElement | HTMLButtonElement} */
+let last_trigger = undefined;
 /** @type {boolean} */
 let wrong_trigger = false;
 /** @type {boolean} */
 let wrong_action = false;
-/** @type {boolean} */
-let wrong_state = false;
-/** @type {HTMLInputElement | HTMLButtonElement} */
-let last_pressed_key = undefined;
 
 // Functions
 /**
@@ -90,11 +88,10 @@ let last_pressed_key = undefined;
 function eventsHandler(action, trigger) {
     wrong_trigger = false;
     wrong_action = false;
-    wrong_state = false;
 
     checkTrigger(trigger);
     updateState(action);
-    test_updateInternals(action, trigger);
+    updateInternals(action, trigger);
     updateExternals();
 }
 
@@ -134,9 +131,6 @@ function updateState(action) {
     }
     if (wrong_action) {
         return;
-    }
-    if (wrong_state) {
-        current_state = STATE.OFF;
     }
 
     switch (current_state) {
@@ -230,9 +224,41 @@ function updateState(action) {
             }
             break;
         default:
-            wrong_state = true;
             console.log(`ERROR || Invalid state || Invalid state reached, current state value: '${current_state}'`);
+            current_state = DEFAULT_STATE;
             console.log(`WARNING || Reverting state || Reverting to default state: '${DEFAULT_STATE}'`);
+            break;
+    }
+}
+
+/**
+ * @param {ACTION} action
+ * @param {HTMLInputElement | HTMLButtonElement} trigger
+ */
+function updateInternals(action, trigger) {
+    if (wrong_trigger) {
+        return;
+    }
+    if (wrong_action) {
+        return;
+    }
+
+    switch (current_state) {
+        case STATE.OFF:
+            typed_message = '';
+            last_trigger = undefined;
+            break;
+        case STATE.CLEAR:
+            typed_message = '';
+            last_trigger = undefined;
+            break;
+        case STATE.TYPING:
+            typed_message = typed_message + trigger.value;
+            last_trigger = trigger;
+            break;
+        case STATE.SENT:
+            typed_message = typed_message;
+            last_trigger = undefined;
             break;
     }
 }
@@ -243,9 +269,6 @@ function updateExternals() {
     }
     if (wrong_action) {
         return;
-    }
-    if (wrong_state) {
-        current_state = STATE.OFF;
     }
 
     switch (current_state) {
@@ -351,40 +374,6 @@ power_on.checked = false;
 updateExternals();
 
 // --- TESTS ---
-/**
- * @param {ACTION} action
- * @param {HTMLInputElement | HTMLButtonElement} trigger
- */
-function test_updateInternals(action, trigger) {
-    if (wrong_trigger) {
-        return;
-    }
-    if (wrong_action) {
-        return;
-    }
-    if (wrong_state) {
-        current_state = STATE.OFF;
-    }
-
-    switch (current_state) {
-        case STATE.OFF:
-            typed_message = '';
-            last_pressed_key = undefined;
-            break;
-        case STATE.CLEAR:
-            typed_message = '';
-            last_pressed_key = undefined;
-            break;
-        case STATE.TYPING:
-            typed_message = typed_message + trigger.value;
-            last_pressed_key = trigger;
-            break;
-        case STATE.SENT:
-            typed_message = typed_message;
-            last_pressed_key = undefined;
-            break;
-    }
-}
 
 // --- EXPERIMENTAL ---
 
