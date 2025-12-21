@@ -1,3 +1,6 @@
+/* eslint-disable no-console */
+/* eslint-disable no-self-assign */
+
 // --- UI ELEMENTS ---
 
 // Displays
@@ -67,6 +70,8 @@ const EVENT = {
 };
 /** @type {STATE} */
 const DEFAULT_STATE = STATE.OFF;
+/** @type {number} */
+const TRIGGER_TIMEOUT = 750;
 
 // Variables
 /** @type {STATE} */
@@ -74,7 +79,11 @@ let current_state = STATE.OFF;
 /** @type {string} */
 let typed_message = '';
 /** @type {HTMLInputElement | HTMLButtonElement} */
-let last_trigger = undefined;
+let last_trigger = null;
+/** @type {number} */
+let char_index = 0;
+/** @type {number} */
+let trigger_timer = null;
 /** @type {boolean} */
 let wrong_trigger = false;
 /** @type {boolean} */
@@ -82,21 +91,22 @@ let wrong_action = false;
 
 // Functions
 /**
- * @param {ACTION} action
- * @param {HTMLInputElement | HTMLButtonElement} trigger
+ * @param {ACTION} action - the action to be executed by the event
+ * @param {HTMLInputElement | HTMLButtonElement} trigger - the trigger that activated the event
  */
 function eventsHandler(action, trigger) {
     wrong_trigger = false;
     wrong_action = false;
 
     checkTrigger(trigger);
+    checkAction(action);
     updateState(action);
     updateInternals(action, trigger);
     updateExternals();
 }
 
 /**
- * @param {HTMLInputElement | HTMLButtonElement} trigger
+ * @param {HTMLInputElement | HTMLButtonElement} trigger - trigger to be checked
  */
 function checkTrigger(trigger) {
     switch (trigger) {
@@ -114,16 +124,36 @@ function checkTrigger(trigger) {
         case action_btn_s:
         case power_on:
         case power_off:
+            wrong_trigger = false;
             break;
         default:
             wrong_trigger = true;
-            console.log(`ERROR || Wrong trigger || Trigger '${trigger.id}' not recognized as a valid trigger`);
+            console.error(`ERROR || Wrong trigger || Trigger '${trigger.id}' not recognized as a valid trigger`);
             break;
     }
 }
 
 /**
- * @param {ACTION} action
+ * @param {ACTION} action - action to be checked
+ */
+function checkAction(action) {
+    switch (action) {
+        case ACTION.POWER_ON:
+        case ACTION.POWER_OFF:
+        case ACTION.TYPE:
+        case ACTION.CLEAR_DISPLAY:
+        case ACTION.SEND_MESSAGE:
+            wrong_action = false;
+            break;
+        default:
+            wrong_action = true;
+            console.error(`ERROR || Wrong action || Action '${action}' not recognized as a valid action`);
+            break;
+    }
+}
+
+/**
+ * @param {ACTION} action - action to be executed
  */
 function updateState(action) {
     if (wrong_trigger) {
@@ -140,100 +170,63 @@ function updateState(action) {
                 break;
             }
             wrong_action = true;
-            console.log(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
-            // switch (action) {
-            //     case ACTION.POWER_ON:
-            //         current_state = STATE.CLEAR;
-            //         break;
-            //     case ACTION.POWER_OFF:
-            //     case ACTION.TYPE:
-            //     case ACTION.CLEAR_DISPLAY:
-            //     case ACTION.SEND_MESSAGE:
-            //         wrong_action = true;
-            //         console.log(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
-            //         break;
-            //     default:
-            //         wrong_action = true;
-            //         console.log(`ERROR || Wrong action || Action '${action}' not recognized as a valid action`);
-            //         break;
-            // }
+            console.error(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
             break;
 
         case STATE.CLEAR:
-            switch (action) {
-                case ACTION.POWER_OFF:
-                    current_state = STATE.OFF;
-                    break;
-                case ACTION.TYPE:
-                    current_state = STATE.TYPING;
-                    break;
-                case ACTION.POWER_ON:
-                case ACTION.CLEAR_DISPLAY:
-                case ACTION.SEND_MESSAGE:
-                    wrong_action = true;
-                    console.log(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
-                    break;
-                default:
-                    wrong_action = true;
-                    console.log(`ERROR || Wrong action || Action '${action}' not recognized as a valid action`);
-                    break;
+            if (action === ACTION.POWER_OFF) {
+                current_state = STATE.OFF;
+                break;
             }
+            if (action === ACTION.TYPE) {
+                current_state = STATE.TYPING;
+                break;
+            }
+            wrong_action = true;
+            console.error(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
             break;
 
         case STATE.TYPING:
-            switch (action) {
-                case ACTION.POWER_OFF:
-                    current_state = STATE.OFF;
-                    break;
-                case ACTION.TYPE:
-                    current_state = STATE.TYPING;
-                    break;
-                case ACTION.CLEAR_DISPLAY:
-                    current_state = STATE.CLEAR;
-                    break;
-                case ACTION.SEND_MESSAGE:
-                    current_state = STATE.SENT;
-                    break;
-                case ACTION.POWER_ON:
-                    wrong_action = true;
-                    console.log(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
-                    break;
-                default:
-                    wrong_action = true;
-                    console.log(`ERROR || Wrong action || Action '${action}' not recognized as a valid action`);
-                    break;
+            if (action === ACTION.POWER_OFF) {
+                current_state = STATE.OFF;
+                break;
             }
+            if (action === ACTION.TYPE) {
+                current_state = STATE.TYPING;
+                break;
+            }
+            if (action === ACTION.CLEAR_DISPLAY) {
+                current_state = STATE.CLEAR;
+                break;
+            }
+            if (action === ACTION.SEND_MESSAGE) {
+                current_state = STATE.SENT;
+                break;
+            }
+            wrong_action = true;
+            console.error(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
             break;
 
         case STATE.SENT:
-            switch (action) {
-                case ACTION.POWER_OFF:
-                    current_state = STATE.OFF;
-                    break;
-                case ACTION.POWER_ON:
-                case ACTION.TYPE:
-                case ACTION.CLEAR_DISPLAY:
-                case ACTION.SEND_MESSAGE:
-                    wrong_action = true;
-                    console.log(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
-                    break;
-                default:
-                    wrong_action = true;
-                    console.log(`ERROR || Wrong action || Action '${action}' not recognized as a valid action`);
-                    break;
+            if (action === ACTION.POWER_OFF) {
+                current_state = STATE.OFF;
+                break;
             }
+            wrong_action = true;
+            console.error(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
             break;
+
         default:
-            console.log(`ERROR || Invalid state || Invalid state reached, current state value: '${current_state}'`);
+            console.error(`ERROR || Invalid state || Invalid state reached, current state value: '${current_state}'`);
             current_state = DEFAULT_STATE;
-            console.log(`WARNING || Reverting state || Reverting to default state: '${DEFAULT_STATE}'`);
+            console.warn(`WARNING || Reverting state || Reverting to default state: '${DEFAULT_STATE}'`);
             break;
     }
 }
 
 /**
- * @param {ACTION} action
- * @param {HTMLInputElement | HTMLButtonElement} trigger
+ * @param {ACTION} action - the action to be executed by the event
+ * @param {HTMLInputElement | HTMLButtonElement} trigger - the trigger that activated the event
  */
 function updateInternals(action, trigger) {
     if (wrong_trigger) {
@@ -246,23 +239,25 @@ function updateInternals(action, trigger) {
     switch (current_state) {
         case STATE.OFF:
             typed_message = '';
-            last_trigger = undefined;
+            last_trigger = null;
             break;
         case STATE.CLEAR:
             typed_message = '';
-            last_trigger = undefined;
+            last_trigger = null;
             break;
         case STATE.TYPING:
-            typed_message = typed_message + trigger.value;
-            last_trigger = trigger;
+            printChar(trigger);
             break;
         case STATE.SENT:
             typed_message = typed_message;
-            last_trigger = undefined;
+            last_trigger = null;
             break;
     }
 }
 
+/**
+ *
+ */
 function updateExternals() {
     if (wrong_trigger) {
         return;
@@ -342,6 +337,30 @@ function updateExternals() {
     }
 }
 
+/**
+ *
+ * @param {HTMLInputElement | HTMLButtonElement} trigger - the trigger that activated the event
+ */
+function printChar(trigger) {
+    if (trigger_timer !== null) {
+        clearTimeout(trigger_timer);
+    }
+
+    if (last_trigger !== trigger) {
+        last_trigger = trigger;
+        char_index = 1;
+    } else {
+        char_index = (char_index + 1) % trigger.value.length;
+        typed_message = typed_message.slice(0, -1);
+    }
+    typed_message = typed_message + trigger.value[char_index];
+
+    trigger_timer = setTimeout(() => {
+        last_trigger = null;
+        trigger_timer = null;
+    }, TRIGGER_TIMEOUT);
+}
+
 // -------------------------------------------------------------------------- //
 
 // --- EVENT HANDLING ---
@@ -368,12 +387,95 @@ action_btn_s.addEventListener(EVENT.CLICK, () => eventsHandler(ACTION.SEND_MESSA
 
 // -------------------------------------------------------------------------- //
 
-// --- INCIALIZE ---
+// --- INCIALIZE INTERFACE ---
 power_off.checked = true;
 power_on.checked = false;
 updateExternals();
 
+// -------------------------------------------------------------------------- //
+
 // --- TESTS ---
+
+/**
+ *
+ * @param {ACTION} action - the action to be executed by the event
+ */
+function switch_updateState(action) {
+    if (wrong_trigger) {
+        return;
+    }
+    if (wrong_action) {
+        return;
+    }
+
+    switch (current_state) {
+        case STATE.OFF:
+            switch (action) {
+                case ACTION.POWER_ON:
+                    current_state = STATE.CLEAR;
+                    break;
+                default:
+                    wrong_action = true;
+                    console.error(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
+                    break;
+            }
+            break;
+
+        case STATE.CLEAR:
+            switch (action) {
+                case ACTION.POWER_OFF:
+                    current_state = STATE.OFF;
+                    break;
+                case ACTION.TYPE:
+                    current_state = STATE.TYPING;
+                    break;
+                default:
+                    wrong_action = true;
+                    console.error(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
+                    break;
+            }
+            break;
+
+        case STATE.TYPING:
+            switch (action) {
+                case ACTION.POWER_OFF:
+                    current_state = STATE.OFF;
+                    break;
+                case ACTION.TYPE:
+                    current_state = STATE.TYPING;
+                    break;
+                case ACTION.CLEAR_DISPLAY:
+                    current_state = STATE.CLEAR;
+                    break;
+                case ACTION.SEND_MESSAGE:
+                    current_state = STATE.SENT;
+                    break;
+                default:
+                    wrong_action = true;
+                    console.error(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
+                    break;
+            }
+            break;
+
+        case STATE.SENT:
+            switch (action) {
+                case ACTION.POWER_OFF:
+                    current_state = STATE.OFF;
+                    break;
+                default:
+                    wrong_action = true;
+                    console.error(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
+                    break;
+            }
+            break;
+
+        default:
+            console.error(`ERROR || Invalid state || Invalid state reached, current state value: '${current_state}'`);
+            current_state = DEFAULT_STATE;
+            console.warn(`WARNING || Reverting state || Reverting to default state: '${DEFAULT_STATE}'`);
+            break;
+    }
+}
 
 // --- EXPERIMENTAL ---
 
@@ -403,26 +505,3 @@ class Action {
         return Object.keys(ACTION).find(key => ACTION[key] === this.type);
     }
 }
-
-// typed_message = '';
-// typed_message = typed_message + trigger.dataset.num;
-// typed_message = '';
-
-// switch (action) {
-//     case ACTION.POWER_ON:
-//         break;
-//     case ACTION.POWER_OFF:
-//         typed_message = '';
-//         break;
-//     case ACTION.TYPE:
-//         typed_message = typed_message + trigger.dataset.num;
-//         break;
-//     case ACTION.CLEAR_DISPLAY:
-//         typed_message = '';
-//         break;
-//     case ACTION.SEND_MESSAGE:
-//         break;
-//     default:
-//         console.log(`ERROR || Wrong action || Action '${action}' not recognized as a valid action`);
-//         break;
-// }
