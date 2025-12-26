@@ -75,7 +75,7 @@ const TRIGGER_TIMEOUT = 750;
 
 // Variables
 /** @type {STATE} */
-let current_state = STATE.OFF;
+let current_state = DEFAULT_STATE;
 /** @type {string} */
 let typed_message = '';
 /** @type {HTMLInputElement | HTMLButtonElement} */
