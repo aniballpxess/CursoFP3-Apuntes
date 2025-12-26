@@ -1,0 +1,84 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #ececec;
+  font-family: Arial, sans-serif;
+  gap: 0.8rem;
+}
+
+.container {
+  display: grid;
+  gap: 0.4rem;
+  padding: 0.4rem;
+}
+
+.button {
+  height: 4rem;
+  width: 4rem;
+  font-size: 1.6rem;
+}
+
+.clickable {
+  background-color: #77dd77;
+  cursor: pointer;
+}
+.clickable:disabled {
+  background-color: #ff9955;
+  cursor: not-allowed;
+}
+.clickable:active {
+  background-color: #66bb66;
+}
+
+.record {
+  background-color: #333333;
+  color: #999999;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+  text-align: end;
+}
+
+#main-frame {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  gap: 0.8rem;
+}
+
+#calculator {
+  grid-template-rows: auto auto;
+  background-color: #777777;
+  padding: 0.8rem;
+}
+
+#display {
+  grid-template-rows: auto auto;
+  justify-items: end;
+  background-color: #333333;
+}
+#display .sup {
+  font-size: 1.2rem;
+  color: #777777;
+}
+#display .main {
+  font-size: 2.4rem;
+  color: #bbbbbb;
+}
+
+#numpad {
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(5, 1fr);
+}
+#numpad > :first-child {
+  grid-column: 2;
+}
+
+#history-view {
+  background-color: #777777;
+  padding: 0.8rem;
+  grid-template-columns: 1fr;
+  max-width: 320px;
+  width: 320px;
+}
