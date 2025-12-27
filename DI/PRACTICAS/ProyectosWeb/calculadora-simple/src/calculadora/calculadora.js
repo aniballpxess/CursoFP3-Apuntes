@@ -61,8 +61,8 @@ const typing_btn_9 = document.getElementById('typing-btn-9');
 const STATE = {
     FIRST_CLEAR: 'FIRST_CLEAR',
     FIRST_TYPING: 'FIRST_TYPING',
-    SECOND_CLEAR: 'SECOND_CLEAR',
-    SECOND_TYPING: 'SECOND_TYPING',
+    NEXT_CLEAR: 'NEXT_CLEAR',
+    NEXT_TYPING: 'NEXT_TYPING',
     FINISHED: 'FINISHED',
 };
 /** @enum {string} */
@@ -72,6 +72,7 @@ const ACTION = {
     DELETE_CHARACTER: 'DELETE_CHARACTER',
     SELECT_OPERATION: 'SELECT_OPERATION',
     TYPE_CHARACTER: 'TYPE_CHARACTER',
+    FINISH_CALCULI: 'FINISH_CALCULI',
 };
 /** @enum {string} */
 const EVENT = {
@@ -83,7 +84,11 @@ const DEFAULT_STATE = STATE.FIRST_CLEAR;
 
 // Variables
 /** @type {STATE} */
-let current_state = STATE.FIRST_CLEAR;
+let current_state = DEFAULT_STATE;
+/** @type {ACTION} */
+let current_action = null;
+/** @type {HTMLInputElement | HTMLButtonElement} */
+let current_trigger = null;
 /** @type {string} */
 let displayed_number = '';
 /** @type {string} */
@@ -99,144 +104,91 @@ let wrong_action = false;
  * @param {HTMLInputElement | HTMLButtonElement} trigger - the trigger that activated the event
  */
 function eventsHandler(action, trigger) {
-    wrong_trigger = false;
-    wrong_action = false;
+    current_action = action;
+    current_trigger = trigger;
 
-    checkTrigger(trigger);
-    checkAction(action);
-    updateState(action);
+    updateState();
     updateInternals(action, trigger);
     updateExternals();
+
+    current_action = null;
+    current_trigger = null;
 }
 
 /**
- * @param {HTMLInputElement | HTMLButtonElement} trigger - trigger to be checked
+ *
  */
-function checkTrigger(trigger) {
-    switch (trigger) {
-        case action_btn_rst:
-        case action_btn_cln:
-        case action_btn_del:
-        case action_btn_eql:
-        case typing_btn_dot:
-        case typing_btn_0:
-        case typing_btn_1:
-        case typing_btn_2:
-        case typing_btn_3:
-        case typing_btn_4:
-        case typing_btn_5:
-        case typing_btn_6:
-        case typing_btn_7:
-        case typing_btn_8:
-        case typing_btn_9:
-        case action_btn_add:
-        case action_btn_sub:
-        case action_btn_prd:
-        case action_btn_div:
-            wrong_trigger = false;
-            break;
-        default:
-            wrong_trigger = true;
-            console.error(`ERROR || Wrong trigger || Trigger '${trigger.id}' not recognized as a valid trigger`);
-            break;
-    }
-}
-
-/**
- * @param {ACTION} action - action to be checked
- */
-function checkAction(action) {
-    switch (action) {
-        case ACTION.RESET_SYSTEM:
-        case ACTION.CLEAR_DISPLAY:
-        case ACTION.DELETE_CHARACTER:
-        case ACTION.SELECT_OPERATION:
-        case ACTION.TYPE_CHARACTER:
-            wrong_action = false;
-            break;
-        default:
-            wrong_action = true;
-            console.error(`ERROR || Wrong action || Action '${action}' not recognized as a valid action`);
-            break;
-    }
-}
-
-/**
- * @param {ACTION} action - action to be executed
- */
-function updateState(action) {
-    if (wrong_trigger) {
-        return;
-    }
-    if (wrong_action) {
-        return;
-    }
-
+function updateState() {
     switch (current_state) {
         case STATE.FIRST_CLEAR:
-            if (action === ACTION.TYPE_CHARACTER) {
+            if (current_action === ACTION.TYPE_CHARACTER) {
                 current_state = STATE.FIRST_TYPING;
                 break;
             }
-            wrong_action = true;
-            console.error(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
             break;
 
         case STATE.FIRST_TYPING:
-            if (action === ACTION.RESET_SYSTEM) {
+            if (current_action === ACTION.RESET_SYSTEM) {
                 current_state = STATE.FIRST_CLEAR;
                 break;
             }
-            if (action === ACTION.CLEAR_DISPLAY) {
+            if (current_action === ACTION.CLEAR_DISPLAY) {
                 current_state = STATE.FIRST_CLEAR;
                 break;
             }
-            if (action === ACTION.DELETE_CHARACTER) {
-                current_state = STATE.FIRST_CLEAR;
+            if (current_action === ACTION.DELETE_CHARACTER) {
+                if (displayed_number === '') {
+                    current_state = STATE.FIRST_CLEAR;
+                }
                 break;
             }
-            if (action === ACTION.TYPE_CHARACTER) {
-                current_state = STATE.FIRST_TYPING;
+            if (current_action === ACTION.SELECT_OPERATION) {
+                current_state = STATE.NEXT_CLEAR;
                 break;
             }
-            wrong_action = true;
-            console.error(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
             break;
 
-        case STATE.TYPING:
-            if (action === ACTION.POWER_OFF) {
+        case STATE.NEXT_CLEAR:
+            if (current_action === ACTION.RESET_SYSTEM) {
                 current_state = STATE.FIRST_CLEAR;
                 break;
             }
-            if (action === ACTION.TYPE) {
-                current_state = STATE.TYPING;
+            if (current_action === ACTION.TYPE_CHARACTER) {
+                current_state = STATE.NEXT_TYPING;
                 break;
             }
-            if (action === ACTION.CLEAR_DISPLAY) {
-                current_state = STATE.FIRST_TYPING;
+            break;
+
+        case STATE.NEXT_TYPING:
+            if (current_action === ACTION.RESET_SYSTEM) {
+                current_state = STATE.FIRST_CLEAR;
                 break;
             }
-            if (action === ACTION.SEND_MESSAGE) {
-                current_state = STATE.SENT;
+            if (current_action === ACTION.CLEAR_DISPLAY) {
+                current_state = STATE.NEXT_CLEAR;
                 break;
             }
-            wrong_action = true;
-            console.error(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
+            if (current_action === ACTION.DELETE_CHARACTER) {
+                if (displayed_number === '') {
+                    current_state = STATE.NEXT_CLEAR;
+                }
+                break;
+            }
+            if (current_action === ACTION.SELECT_OPERATION) {
+                current_state = STATE.NEXT_CLEAR;
+                break;
+            }
+            if (current_action === ACTION.FINISH_CALCULI) {
+                current_state = STATE.FINISHED;
+                break;
+            }
             break;
 
         case STATE.FINISHED:
-            if (action === ACTION.RESET_SYSTEM) {
+            if (current_action === ACTION.RESET_SYSTEM) {
                 current_state = STATE.FIRST_CLEAR;
                 break;
             }
-            wrong_action = true;
-            console.error(`ERROR || Wrong action-state relation || Action '${action}' should not have been activated.`);
-            break;
-
-        default:
-            console.error(`ERROR || Invalid state || Invalid state reached, current state value: '${current_state}'`);
-            current_state = DEFAULT_STATE;
-            console.warn(`WARNING || Reverting state || Reverting to default state: '${DEFAULT_STATE}'`);
             break;
     }
 }
@@ -255,15 +207,24 @@ function updateInternals(action, trigger) {
 
     switch (current_state) {
         case STATE.FIRST_CLEAR:
-            typed_message = '';
+            displayed_number = '';
+            displayed_operation = '';
             break;
         case STATE.FIRST_TYPING:
-            typed_message = '';
+            displayed_number = display_number;
+            displayed_operation = '';
             break;
-        case STATE.TYPING:
+        case STATE.NEXT_CLEAR:
+            displayed_number = '';
+            displayed_operation = display_operation;
             break;
-        case STATE.SENT:
-            typed_message = typed_message;
+        case STATE.NEXT_TYPING:
+            displayed_number = display_number;
+            displayed_operation = display_operation;
+            break;
+        case STATE.FINISHED:
+            displayed_number = display_number;
+            displayed_operation = display_operation;
             break;
     }
 }
@@ -328,7 +289,7 @@ function updateExternals() {
             action_btn_div.disabled = false;
             break;
 
-        case STATE.SECOND_CLEAR:
+        case STATE.NEXT_CLEAR:
             display_number.textContent = '';
             display_operation.textContent = displayed_operation;
             action_btn_rst.disabled = false;
@@ -352,7 +313,7 @@ function updateExternals() {
             action_btn_div.disabled = true;
             break;
 
-        case STATE.SECOND_TYPING:
+        case STATE.NEXT_TYPING:
             display_number.textContent = displayed_number;
             display_operation.textContent = displayed_operation;
             action_btn_rst.disabled = false;
