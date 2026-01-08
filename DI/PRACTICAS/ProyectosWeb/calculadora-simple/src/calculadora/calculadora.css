@@ -1,7 +1,7 @@
 body {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   height: 100vh;
   background: #ececec;
   font-family: Arial, sans-serif;
@@ -24,12 +24,17 @@ body {
   background-color: #77dd77;
   cursor: pointer;
 }
+.clickable:active {
+  background-color: #66bb66;
+  cursor: pointer;
+}
 .clickable:disabled {
   background-color: #ff9955;
   cursor: not-allowed;
 }
-.clickable:active {
-  background-color: #66bb66;
+.clickable:disabled:active {
+  background-color: #ff9955;
+  cursor: not-allowed;
 }
 
 .record {
@@ -57,17 +62,21 @@ body {
   grid-template-rows: auto auto;
   justify-items: end;
   background-color: #333333;
+  width: 18rem;
 }
 #display .sup {
+  height: 1.2rem;
   font-size: 1.2rem;
   color: #777777;
 }
 #display .main {
+  height: 2.4rem;
   font-size: 2.4rem;
   color: #bbbbbb;
 }
 
 #numpad {
+  padding: 0.4rem;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(5, 1fr);
 }
