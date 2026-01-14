@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>cajero</title>
+    <link rel="stylesheet" href="cajero.css" />
+    <script src="cajero.js" defer></script>
+  </head>
+  <body>
+    <div id="cashier" class="container">
+      <div id="first-section" class="container">
+        <button id="act-btn-check" class="button clickable center-center with-text" disabled>CS</button>
+        <button id="act-btn-take" class="button clickable center-center with-text">SD</button>
+        <button id="act-btn-exit" class="button clickable center-center with-text">S</button>
+        <div id="dis-surface" class="display-part with-text"></div>
+        <label id="dis-lbl-check" class="center-left display-part with-text" for="act-btn-check">&lt;- Consultar Dinero</label>
+        <label id="dis-lbl-take" class="center-right display-part with-text" for="act-btn-take">Sacar Dinero -&gt;</label>
+        <label id="dis-lbl-exit" class="center-right display-part with-text" for="act-btn-exit">Salir -&gt;</label>
+        <div id="dis-txt-main" class="top-center display-part with-text">Saldo <br />1.000.000€</div>
+      </div>
+      <div id="second-section" class="container">
+        <div></div>
+        <div id="numpad"></div>
+        <div></div>
+      </div>
+      <div id="third-section" class="container">
+        <button id="act-btn-history"></button>
+      </div>
+    </div>
+  </body>
+</html>

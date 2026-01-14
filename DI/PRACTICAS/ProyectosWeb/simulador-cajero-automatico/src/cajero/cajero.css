@@ -1,0 +1,167 @@
+/* GENERAL CLASSES AND DEFINITIONS */
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 100vh;
+  background: #eeeeee;
+}
+
+.container {
+  display: grid;
+}
+
+.button {
+  height: 3rem;
+  width: 3rem;
+  font-size: 1.5rem;
+  line-height: 100%;
+  padding: 0;
+}
+
+.display-part {
+  background-color: #333333;
+  color: #bbbbbb;
+  font-size: 1rem;
+  line-height: 200%;
+  padding: 0.5rem;
+}
+
+.with-text {
+  font-family: monospace;
+  text-align: center;
+}
+
+.record {
+  background-color: #333333;
+  color: #999999;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+}
+
+.clickable {
+  background-color: #cccccc;
+  color: #666666;
+  cursor: pointer;
+}
+.clickable:active {
+  background-color: #999999;
+  color: #666666;
+  cursor: pointer;
+}
+.clickable:disabled {
+  background-color: #cccccc;
+  color: #999999;
+  cursor: not-allowed;
+}
+.clickable:disabled:active {
+  background-color: #cccccc;
+  color: #999999;
+  cursor: not-allowed;
+}
+
+/* Aligning definitions */
+.top-left {
+  align-self: start;
+  justify-self: start;
+}
+.top-center {
+  align-self: start;
+  justify-self: center;
+}
+.top-right {
+  align-self: start;
+  justify-self: end;
+}
+
+.center-left {
+  align-self: center;
+  justify-self: start;
+}
+.center-center {
+  align-self: center;
+  justify-self: center;
+}
+.center-right {
+  align-self: center;
+  justify-self: end;
+}
+
+.bottom-left {
+  align-self: end;
+  justify-self: start;
+}
+.bottom-center {
+  align-self: end;
+  justify-self: center;
+}
+.bottom-right {
+  align-self: end;
+  justify-self: end;
+}
+
+/* INDIVIDUAL OVERRIDES AND SPECIFICATIONS */
+
+/* Structure definitions*/
+#cashier {
+  max-width: 40rem;
+  min-width: 40rem;
+  max-height: 40rem;
+  min-height: 40rem;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 2fr 1fr;
+}
+
+#first-section {
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+
+#second-section {
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+#numpad {
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+
+#third-section {
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: repeat(4, 1fr);
+}
+
+/* Positioning */
+#act-btn-check {
+  grid-column: 1;
+  grid-row: 1;
+}
+#act-btn-take {
+  grid-column: 10;
+  grid-row: 1;
+}
+#act-btn-exit {
+  grid-column: 10;
+  grid-row: 2;
+}
+#dis-surface {
+  grid-column: 2 / 10;
+  grid-row: 1 / 5;
+}
+#dis-lbl-check {
+  grid-column: 2 / 6;
+  grid-row: 1;
+}
+#dis-lbl-take {
+  grid-column: 6 / 10;
+  grid-row: 1;
+}
+#dis-lbl-exit {
+  grid-column: 6 / 10;
+  grid-row: 2;
+}
+#dis-txt-main {
+  grid-column: 2 / 10;
+  grid-row: 3 / 5;
+}
