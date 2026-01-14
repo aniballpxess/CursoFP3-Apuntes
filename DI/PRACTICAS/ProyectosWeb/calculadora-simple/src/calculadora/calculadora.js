@@ -197,9 +197,6 @@ function runAction() {
             displayed_operation = `${first_number} ${current_operand} ${second_number} =`;
             displayed_number = result;
             break;
-
-        default:
-            break;
     }
 }
 
