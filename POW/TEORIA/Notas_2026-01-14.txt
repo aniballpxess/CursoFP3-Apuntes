@@ -1,0 +1,3 @@
+schema.org -> Main source of data structures for SEO (for ft. positioning in search results)
+Google Search Central -> Main source of documentation for SEO given by Google
+Lighthouse -> Streamlined tool for assessing web performance issues given by Google
