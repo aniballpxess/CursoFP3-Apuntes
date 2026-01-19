@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 /* eslint-disable no-self-assign */
 
 // --- UI ELEMENTS ---
