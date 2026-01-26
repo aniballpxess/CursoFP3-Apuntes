@@ -509,7 +509,7 @@ function updateExternals() {
 // Special buttons
 sim_btn_card.addEventListener(EVENT.CLICK, () => eventsHandler(ACTION.CARD_ACTION, sim_btn_card));
 sim_btn_money.addEventListener(EVENT.CLICK, () => eventsHandler(ACTION.WITHDRAW_MONEY, sim_btn_money));
-act_btn_history.addEventListener(EVENT.CLICK, () => eventsHandler(ACTION.O, act_btn_history));
+act_btn_history.addEventListener(EVENT.CLICK, () => eventsHandler(ACTION.OPEN_HISTORY, act_btn_history));
 
 // Display buttons
 act_btn_check.addEventListener(EVENT.CLICK, () => eventsHandler(ACTION.CHECK_BALANCE, act_btn_check));
