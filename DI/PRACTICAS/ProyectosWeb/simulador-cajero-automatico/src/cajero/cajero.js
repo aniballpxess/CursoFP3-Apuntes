@@ -129,6 +129,7 @@ function eventsHandler(action, trigger) {
 
     runAction();
     updateState();
+    updateInternals();
     updateExternals();
 
     current_action = null;
@@ -172,11 +173,11 @@ function runAction() {
 }
 
 function openHistoryTab() {
-    Window.prototype.document.open();
+    // Window.prototype.document.open();
 }
 
 function registerAction() {
-    Window.prototype.localStorage.setItem();
+    // Window.prototype.localStorage.setItem();
 }
 
 /**
@@ -286,13 +287,56 @@ function updateState() {
 /**
  *
  */
+function updateInternals() {
+    switch (current_state) {
+        case STATE.AWAIT_CARD_IN:
+            balance = balance;
+            withdrawal_amount = 0;
+            displayed_text = 'Introduzca tarjeta';
+            break;
+
+        case STATE.SELECTING_OPERATION:
+            balance = balance;
+            withdrawal_amount = 0;
+            displayed_text = 'Seleccione operación';
+            break;
+
+        case STATE.CHECKING_BALANCE:
+            balance = balance;
+            withdrawal_amount = 0;
+            displayed_text = `Saldo<br />${balance} €`;
+            break;
+
+        case STATE.TAKING_OUT_MONEY:
+            balance = balance;
+            withdrawal_amount = withdrawal_amount;
+            displayed_text = `Introduzca importe y pulse [->]<br />${withdrawal_amount} €`;
+            break;
+
+        case STATE.AWAIT_MONEY_WITHDRAW:
+            balance = balance;
+            withdrawal_amount = 0;
+            displayed_text = 'Retire dinero';
+            break;
+
+        case STATE.AWAIT_CARD_OUT:
+            balance = balance;
+            withdrawal_amount = 0;
+            displayed_text = 'Extraiga tarjeta';
+            break;
+    }
+}
+
+/**
+ *
+ */
 function updateExternals() {
     switch (current_state) {
         case STATE.AWAIT_CARD_IN:
             label_check.hidden = true;
             label_take.hidden = true;
             label_exit.hidden = true;
-            main_text.textContent = displayed_text;
+            main_text.innerHTML = displayed_text;
 
             act_btn_check.disabled = true;
             act_btn_take.disabled = true;
@@ -320,7 +364,7 @@ function updateExternals() {
             label_check.hidden = false;
             label_take.hidden = false;
             label_exit.hidden = false;
-            main_text.textContent = displayed_text;
+            main_text.innerHTML = displayed_text;
 
             act_btn_check.disabled = false;
             act_btn_take.disabled = false;
@@ -348,7 +392,7 @@ function updateExternals() {
             label_check.hidden = true;
             label_take.hidden = true;
             label_exit.hidden = false;
-            main_text.textContent = displayed_text;
+            main_text.innerHTML = displayed_text;
 
             act_btn_check.disabled = true;
             act_btn_take.disabled = true;
@@ -376,7 +420,7 @@ function updateExternals() {
             label_check.hidden = true;
             label_take.hidden = true;
             label_exit.hidden = false;
-            main_text.textContent = displayed_text;
+            main_text.innerHTML = displayed_text;
 
             act_btn_check.disabled = true;
             act_btn_take.disabled = true;
@@ -404,7 +448,7 @@ function updateExternals() {
             label_check.hidden = true;
             label_take.hidden = true;
             label_exit.hidden = true;
-            main_text.textContent = displayed_text;
+            main_text.innerHTML = displayed_text;
 
             act_btn_check.disabled = true;
             act_btn_take.disabled = true;
@@ -432,7 +476,7 @@ function updateExternals() {
             label_check.hidden = true;
             label_take.hidden = true;
             label_exit.hidden = true;
-            main_text.textContent = displayed_text;
+            main_text.innerHTML = displayed_text;
 
             act_btn_check.disabled = true;
             act_btn_take.disabled = true;
@@ -489,6 +533,7 @@ typing_btn_9.addEventListener(EVENT.CLICK, () => eventsHandler(ACTION.TYPE_DIGIT
 
 // --- INCIALIZE INTERFACE ---
 current_state = DEFAULT_STATE;
+updateInternals();
 updateExternals();
 
 // -------------------------------------------------------------------------- //
