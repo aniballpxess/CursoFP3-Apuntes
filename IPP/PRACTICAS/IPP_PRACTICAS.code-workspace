@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"workbench.colorTheme": "Monokai Dimmed"
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-azuretools.vscode-containers"
+		]
+	}
+}
