@@ -1,0 +1,10 @@
+Description
+- Provide Google Lighthouse reports on 1 "good" and 1 "bad" websites (2 reports in total)
+   - Provide 3 evidences for each report (2 reports * 3 evidences = 6 evidences in total)
+Delivery
+- Files
+   - Good  - <Website name>.pdf
+   - Bad  - <Website name>.pdf
+- Each file includes Google Lighthouse report and 3 evidences
+Reference
+- Lighthouse Tool, Google Developers, 2021 - https://developers.google.com/web/tools/lighthouse
