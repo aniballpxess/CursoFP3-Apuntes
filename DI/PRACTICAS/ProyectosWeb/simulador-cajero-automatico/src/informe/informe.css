@@ -1,0 +1,118 @@
+/* --- GENERAL CLASSES & DEFINITIONS --- */
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 100vh;
+  background: #dddddd;
+}
+
+.main {
+  background-color: #777777;
+  padding: 0.2rem;
+  min-width: max-content;
+  min-height: max-content;
+}
+
+.container {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.button-normal,
+.button-large {
+  height: 3rem;
+  font-size: 1.2rem;
+  line-height: 100%;
+}
+.button-normal {
+  width: 3rem;
+}
+.button-large {
+  width: 12rem;
+}
+
+.display-part {
+  background-color: #333333;
+  color: #bbbbbb;
+  font-size: 1rem;
+  line-height: 200%;
+}
+
+.with-text {
+  font-family: monospace;
+  text-align: center;
+  padding: 0.2rem;
+}
+
+.record {
+  background-color: #333333;
+  color: #999999;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+}
+
+.clickable,
+.clickable:active {
+  border-color: #555555;
+  color: #555555;
+  cursor: pointer;
+}
+.clickable {
+  background-color: #bbbbbb;
+}
+.clickable:active {
+  background-color: #999999;
+}
+.clickable:disabled,
+.clickable:disabled:active {
+  border-color: #999999;
+  background-color: #bbbbbb;
+  color: #999999;
+  cursor: not-allowed;
+}
+
+/* Aligning definitions */
+.top-left {
+  align-self: start;
+  justify-self: start;
+}
+.top-center {
+  align-self: start;
+  justify-self: center;
+}
+.top-right {
+  align-self: start;
+  justify-self: end;
+}
+
+.center-left {
+  align-self: center;
+  justify-self: start;
+}
+.center-center {
+  align-self: center;
+  justify-self: center;
+}
+.center-right {
+  align-self: center;
+  justify-self: end;
+}
+
+.bottom-left {
+  align-self: end;
+  justify-self: start;
+}
+.bottom-center {
+  align-self: end;
+  justify-self: center;
+}
+.bottom-right {
+  align-self: end;
+  justify-self: end;
+}
+
+/* --- STRUCTURE OF ELEMENTS --- */
+
+/* Main ------------------------------------------------ */

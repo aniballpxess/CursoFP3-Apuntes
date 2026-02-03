@@ -1,5 +1,7 @@
 /* eslint-disable no-self-assign */
 
+import { Record, loadRecords, saveRecords } from '../record';
+
 // --- UI ELEMENTS ---
 
 // Display parts
@@ -118,6 +120,9 @@ let withdrawal_amount = 0;
 /** @type {string} */
 let displayed_text = '';
 
+/** @type {Record[]} */
+let records = loadRecords();
+
 // Functions
 /**
  * @param {ACTION} action - the action to be executed by the event
@@ -149,7 +154,7 @@ function runAction() {
             break;
 
         case ACTION.CHECK_BALANCE:
-            registerAction();
+            registerAction('Consultar Saldo');
             break;
 
         case ACTION.TAKE_OUT_MONEY:
@@ -164,7 +169,7 @@ function runAction() {
 
         case ACTION.CONFIRM_AMOUNT:
             balance = balance - withdrawal_amount;
-            registerAction();
+            registerAction('Sacar Dinero');
             break;
 
         case ACTION.WITHDRAW_MONEY:
@@ -172,12 +177,21 @@ function runAction() {
     }
 }
 
+/**
+ *
+ */
 function openHistoryTab() {
-    // Window.prototype.document.open();
+    saveRecords(records);
+    window.location.href = '../informe/informe.html';
 }
 
-function registerAction() {
-    // Window.prototype.localStorage.setItem();
+/**
+ *
+ * @param {string} action_name name of the action to be registered
+ */
+function registerAction(action_name) {
+    const record = Record.create(action_name, withdrawal_amount, balance);
+    records.push(record);
 }
 
 /**
