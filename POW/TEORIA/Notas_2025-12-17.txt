@@ -27,6 +27,6 @@ Rich Results
 schema.org
     Web for how to structure your data for correct reading by Google. Backed by 
     Microsoft, Google, Yandex and Yahoo to help websites standardize their data 
-    for easier reading and use by web searchers. Also accepting suggestions from 
+    for ease of read and use by web searchers. Also accepting suggestions from 
     the open dev community it has (usually based on real-life experience 
     developing webs and structuring their data).
