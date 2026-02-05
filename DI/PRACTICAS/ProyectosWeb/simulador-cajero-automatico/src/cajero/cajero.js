@@ -121,7 +121,7 @@ let withdrawal_amount = 0;
 let displayed_text = '';
 
 /** @type {Record[]} */
-let records = loadRecords();
+let records = null;
 
 // Functions
 /**
@@ -547,6 +547,7 @@ typing_btn_9.addEventListener(EVENT.CLICK, () => eventsHandler(ACTION.TYPE_DIGIT
 
 // --- INCIALIZE INTERFACE ---
 current_state = DEFAULT_STATE;
+records = loadRecords();
 updateInternals();
 updateExternals();
 

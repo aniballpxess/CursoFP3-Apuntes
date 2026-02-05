@@ -60,8 +60,23 @@ export class Record {
  * @returns {Record[]} Array of Record instances.
  */
 export function loadRecords() {
-    const raw = JSON.parse(localStorage.getItem('records')) || [];
-    return raw.map(obj => Record.fromJSON(obj));
+    /** @type {object[]} */
+    let raw = null;
+    /** @type {(Record | null)[]} */
+    let unfiltered = null;
+    /** @type {Record[]} */
+    let records = null;
+
+    raw = JSON.parse(localStorage.getItem('records')) || [];
+    unfiltered = raw.map(obj => {
+        if (obj instanceof Record) {
+            return obj;
+        }
+        return null;
+    });
+    records = unfiltered.filter(record => record !== null);
+
+    return records;
 }
 
 /**

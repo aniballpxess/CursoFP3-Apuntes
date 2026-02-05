@@ -1,6 +1,6 @@
 import { Record, loadRecords, saveRecords } from '../record';
 
-const tbody = document.getElementById('tableBody');
+const tbody = document.getElementById('table-body');
 
 const records = loadRecords();
 
