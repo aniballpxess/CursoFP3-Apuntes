@@ -5,23 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>informe</title>
     <link rel="stylesheet" href="informe.css" />
-    <script src="informe.js" defer></script>
+    <script src="informe.js" type="module"></script>
   </head>
   <body>
     <div id="history" class="main container">
-      <div id="page-title">Informe</div>
-      <table>
-        <thead>
-          <tr>
-            <th>Fecha</th>
-            <th>Hora</th>
-            <th>Operación</th>
-            <th>Importe (€)</th>
-            <th>Saldo (€)</th>
-          </tr>
-        </thead>
-        <tbody id="table-body"></tbody>
-      </table>
+      <h1 id="page-title" class="with-text bottom-left">Informe</h1>
+      <div id="records-table" class="top-stretch">
+        <table class="top-stretch">
+          <thead>
+            <tr>
+              <th class="with-text">Fecha</th>
+              <th class="with-text">Hora</th>
+              <th class="with-text">Operación</th>
+              <th class="with-text">Importe (€)</th>
+              <th class="with-text">Saldo (€)</th>
+            </tr>
+          </thead>
+          <tbody id="records-table-body"></tbody>
+        </table>
+      </div>
+      <button id="act-btn-reset" class="button-large clickable-grey top-center with-text">Inicializar</button>
+      <button id="act-btn-close" class="button-large clickable-grey top-center with-text">Cerrar</button>
+      <button id="helper-btn-tab" class="button-helper clickable-red center-center with-text" tabindex="-1">SIGUIENTE</button>
+      <button id="helper-btn-enter" class="button-helper clickable-green center-center with-text" tabindex="-1">ACCIONAR</button>
     </div>
   </body>
 </html>

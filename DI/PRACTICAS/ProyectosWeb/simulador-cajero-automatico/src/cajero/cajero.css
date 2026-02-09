@@ -1,4 +1,7 @@
 /* --- GENERAL CLASSES & DEFINITIONS --- */
+:focus {
+  outline: 2px solid #ffffff;
+}
 
 body {
   display: flex;
@@ -6,6 +9,31 @@ body {
   align-items: start;
   height: 100vh;
   background: #dddddd;
+}
+h1 {
+  font-size: 1.6rem;
+}
+table {
+  font-size: 1rem;
+  background-color: #333333;
+}
+thead {
+  background-color: #111177;
+  color: #eeeeee;
+}
+th {
+  font-weight: 600;
+  max-width: max-content;
+  max-height: max-content;
+}
+tbody {
+  background-color: #eeeeee;
+  color: #333333;
+}
+td {
+  font-weight: 300;
+  max-width: max-content;
+  max-height: max-content;
 }
 
 .main {
@@ -18,19 +46,6 @@ body {
 .container {
   display: grid;
   gap: 0.2rem;
-}
-
-.button-normal,
-.button-large {
-  height: 3rem;
-  font-size: 1.2rem;
-  line-height: 100%;
-}
-.button-normal {
-  width: 3rem;
-}
-.button-large {
-  width: 12rem;
 }
 
 .display-part {
@@ -53,23 +68,84 @@ body {
   font-size: 1.2rem;
 }
 
-.clickable,
-.clickable:active {
+/* Button definitions */
+.button-normal {
+  height: 3rem;
+  width: 3rem;
+  font-size: 1.2rem;
+  line-height: 100%;
+}
+.button-large {
+  height: 3rem;
+  width: 12rem;
+  font-size: 1.2rem;
+  line-height: 100%;
+}
+.button-helper {
+  height: 6rem;
+  width: 9rem;
+  font-size: 1.5rem;
+  line-height: 100%;
+}
+
+/* Clickable definitions */
+.clickable-grey,
+.clickable-grey:active {
   border-color: #555555;
   color: #555555;
   cursor: pointer;
 }
-.clickable {
+.clickable-grey {
   background-color: #bbbbbb;
 }
-.clickable:active {
+.clickable-grey:active {
   background-color: #999999;
 }
-.clickable:disabled,
-.clickable:disabled:active {
+.clickable-grey:disabled,
+.clickable-grey:disabled:active {
   border-color: #999999;
   background-color: #bbbbbb;
   color: #999999;
+  cursor: not-allowed;
+}
+
+.clickable-green,
+.clickable-green:active {
+  border-color: #446644;
+  color: #446644;
+  cursor: pointer;
+}
+.clickable-green {
+  background-color: #88aa88;
+}
+.clickable-green:active {
+  background-color: #668866;
+}
+.clickable-green:disabled,
+.clickable-green:disabled:active {
+  border-color: #668866;
+  background-color: #88aa88;
+  color: #668866;
+  cursor: not-allowed;
+}
+
+.clickable-red,
+.clickable-red:active {
+  border-color: #774444;
+  color: #774444;
+  cursor: pointer;
+}
+.clickable-red {
+  background-color: #bb8888;
+}
+.clickable-red:active {
+  background-color: #886666;
+}
+.clickable-red:disabled,
+.clickable-red:disabled:active {
+  border-color: #886666;
+  background-color: #bb8888;
+  color: #886666;
   cursor: not-allowed;
 }
 
@@ -118,7 +194,7 @@ body {
 /* Main ------------------------------------------------ */
 #cashier {
   grid-template-columns: 1fr;
-  grid-template-rows: 2fr 2fr 1fr;
+  grid-template-rows: 2fr 2fr 1fr 1fr;
 }
 #first-section {
   grid-column: 1;
@@ -131,6 +207,10 @@ body {
 #third-section {
   grid-column: 1;
   grid-row: 3;
+}
+#fourth-section {
+  grid-column: 1;
+  grid-row: 4;
 }
 /* ----------------------------------------------------- */
 
@@ -252,11 +332,26 @@ body {
 
 /* Third Section --------------------------------------- */
 #third-section {
-  grid-template-columns: 1;
-  grid-template-rows: 1;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
 }
 #act-btn-history {
   grid-column: 1;
+  grid-row: 1;
+}
+/* ----------------------------------------------------- */
+
+/* Fourth Section --------------------------------------- */
+#fourth-section {
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+}
+#helper-btn-tab {
+  grid-column: 1;
+  grid-row: 1;
+}
+#helper-btn-enter {
+  grid-column: 2;
   grid-row: 1;
 }
 /* ----------------------------------------------------- */

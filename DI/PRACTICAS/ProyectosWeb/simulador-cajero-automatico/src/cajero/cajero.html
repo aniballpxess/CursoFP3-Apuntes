@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>cajero</title>
     <link rel="stylesheet" href="cajero.css" />
-    <script src="cajero.js" defer></script>
+    <script src="cajero.js" type="module"></script>
   </head>
   <body>
     <div id="cashier" class="main container">
       <div id="first-section" class="container">
-        <button id="act-btn-check" class="button-normal clickable center-center with-text" title="Consultar Saldo">CS</button>
-        <button id="act-btn-take" class="button-normal clickable center-center with-text" title="Sacar Dinero">SD</button>
-        <button id="act-btn-exit" class="button-normal clickable center-center with-text" title="Salir">S</button>
+        <button id="act-btn-check" class="button-normal clickable-grey center-center with-text" title="Consultar Saldo">CS</button>
+        <button id="act-btn-take" class="button-normal clickable-grey center-center with-text" title="Sacar Dinero">SD</button>
+        <button id="act-btn-exit" class="button-normal clickable-grey center-center with-text" title="Salir">S</button>
         <div id="dis-screen" class="container display-part with-text">
           <label id="dis-lbl-check" class="center-left display-part with-text" for="act-btn-check">&lt;- Consultar Dinero</label>
           <label id="dis-lbl-take" class="center-right display-part with-text" for="act-btn-take">Sacar Dinero -&gt;</label>
@@ -21,24 +21,28 @@
         </div>
       </div>
       <div id="second-section" class="container">
-        <button id="sim-btn-card" class="button-large clickable center-center with-text">Intr./Extr. Tarjeta</button>
+        <button id="sim-btn-card" class="button-large clickable-grey center-center with-text">Intr./Extr. Tarjeta</button>
         <div id="numpad" class="container">
-          <button id="typing-btn-9" class="button-normal clickable center-center with-text">9</button>
-          <button id="typing-btn-8" class="button-normal clickable center-center with-text">8</button>
-          <button id="typing-btn-7" class="button-normal clickable center-center with-text">7</button>
-          <button id="typing-btn-6" class="button-normal clickable center-center with-text">6</button>
-          <button id="typing-btn-5" class="button-normal clickable center-center with-text">5</button>
-          <button id="typing-btn-4" class="button-normal clickable center-center with-text">4</button>
-          <button id="typing-btn-3" class="button-normal clickable center-center with-text">3</button>
-          <button id="typing-btn-2" class="button-normal clickable center-center with-text">2</button>
-          <button id="typing-btn-1" class="button-normal clickable center-center with-text">1</button>
-          <button id="typing-btn-0" class="button-normal clickable center-center with-text">0</button>
-          <button id="act-btn-next" class="button-normal clickable center-center with-text">-></button>
+          <button id="typing-btn-9" class="button-normal clickable-grey center-center with-text">9</button>
+          <button id="typing-btn-8" class="button-normal clickable-grey center-center with-text">8</button>
+          <button id="typing-btn-7" class="button-normal clickable-grey center-center with-text">7</button>
+          <button id="typing-btn-6" class="button-normal clickable-grey center-center with-text">6</button>
+          <button id="typing-btn-5" class="button-normal clickable-grey center-center with-text">5</button>
+          <button id="typing-btn-4" class="button-normal clickable-grey center-center with-text">4</button>
+          <button id="typing-btn-3" class="button-normal clickable-grey center-center with-text">3</button>
+          <button id="typing-btn-2" class="button-normal clickable-grey center-center with-text">2</button>
+          <button id="typing-btn-1" class="button-normal clickable-grey center-center with-text">1</button>
+          <button id="typing-btn-0" class="button-normal clickable-grey center-center with-text">0</button>
+          <button id="act-btn-next" class="button-normal clickable-grey center-center with-text">-></button>
         </div>
-        <button id="sim-btn-money" class="button-large clickable center-center with-text">Retirar dinero</button>
+        <button id="sim-btn-money" class="button-large clickable-grey center-center with-text">Retirar dinero</button>
       </div>
       <div id="third-section" class="container">
-        <button id="act-btn-history" class="button-large clickable center-center with-text">Informe</button>
+        <button id="act-btn-history" class="button-large clickable-grey center-center with-text">Informe</button>
+      </div>
+      <div id="fourth-section" class="container">
+        <button id="helper-btn-tab" class="button-helper clickable-red center-center with-text" tabindex="-1">SIGUIENTE</button>
+        <button id="helper-btn-enter" class="button-helper clickable-green center-center with-text" tabindex="-1">ACCIONAR</button>
       </div>
     </div>
   </body>

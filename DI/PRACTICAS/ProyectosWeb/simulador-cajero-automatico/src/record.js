@@ -44,14 +44,16 @@ export class Record {
 
     /**
      * Restore an Record from a plain object (after JSON.parse).
-     * @param {object} obj Object representing an Record.
-     * @returns {Record} Record instance if it is one, null otherwise.
+     * @param {Partial<Record>} obj Object representing an Record.
+     * @returns {Record | null} Record instance if it is one, null otherwise.
      */
     static fromJSON(obj) {
-        if (obj instanceof Record) {
-            return obj;
+        if (!obj || typeof obj !== 'object') {
+            return null;
         }
-        return null;
+        const record = new Record();
+        Object.assign(record, obj);
+        return record;
     }
 }
 
@@ -60,20 +62,15 @@ export class Record {
  * @returns {Record[]} Array of Record instances.
  */
 export function loadRecords() {
-    /** @type {object[]} */
-    let raw = null;
+    /** @type {unknown[]} */
+    let raw;
     /** @type {(Record | null)[]} */
-    let unfiltered = null;
+    let unfiltered;
     /** @type {Record[]} */
-    let records = null;
+    let records;
 
     raw = JSON.parse(localStorage.getItem('records')) || [];
-    unfiltered = raw.map(obj => {
-        if (obj instanceof Record) {
-            return obj;
-        }
-        return null;
-    });
+    unfiltered = raw.map(obj => Record.fromJSON(obj));
     records = unfiltered.filter(record => record !== null);
 
     return records;
