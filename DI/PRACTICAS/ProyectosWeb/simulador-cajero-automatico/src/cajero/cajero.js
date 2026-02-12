@@ -139,11 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
     /** @type {HTMLInputElement | HTMLButtonElement} */
     let current_trigger = null;
 
-    /** @type {boolean} */
-    let wrong_trigger = false;
-    /** @type {boolean} */
-    let wrong_action = false;
-
     /** @type {number} */
     let balance = 1000;
     /** @type {number} */

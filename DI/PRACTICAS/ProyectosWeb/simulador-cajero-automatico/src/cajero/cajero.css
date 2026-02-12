@@ -1,6 +1,6 @@
 /* --- GENERAL CLASSES & DEFINITIONS --- */
 :focus {
-  outline: 2px solid #ffffff;
+  outline: 0.2rem solid #99ccff;
 }
 
 body {
@@ -12,6 +12,7 @@ body {
 }
 h1 {
   font-size: 1.6rem;
+  margin-block: 0.4rem;
 }
 table {
   font-size: 1rem;
@@ -23,8 +24,6 @@ thead {
 }
 th {
   font-weight: 600;
-  max-width: max-content;
-  max-height: max-content;
 }
 tbody {
   background-color: #eeeeee;
@@ -32,8 +31,6 @@ tbody {
 }
 td {
   font-weight: 300;
-  max-width: max-content;
-  max-height: max-content;
 }
 
 .main {
@@ -162,6 +159,10 @@ td {
   align-self: start;
   justify-self: end;
 }
+.top-stretch {
+  align-self: start;
+  justify-self: stretch;
+}
 
 .center-left {
   align-self: center;
@@ -175,6 +176,10 @@ td {
   align-self: center;
   justify-self: end;
 }
+.center-stretch {
+  align-self: center;
+  justify-self: stretch;
+}
 
 .bottom-left {
   align-self: end;
@@ -187,6 +192,27 @@ td {
 .bottom-right {
   align-self: end;
   justify-self: end;
+}
+.bottom-stretch {
+  align-self: end;
+  justify-self: stretch;
+}
+
+.stretch-left {
+  align-self: stretch;
+  justify-self: start;
+}
+.stretch-center {
+  align-self: stretch;
+  justify-self: center;
+}
+.stretch-right {
+  align-self: stretch;
+  justify-self: end;
+}
+.stretch-stretch {
+  align-self: stretch;
+  justify-self: stretch;
 }
 
 /* --- STRUCTURE OF ELEMENTS --- */

@@ -1,4 +1,4 @@
-import { Record, loadRecords, saveRecords } from '../record.js';
+import { Record, loadRecords } from '../record.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- UI ELEMENTS ---
