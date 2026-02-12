@@ -17,12 +17,17 @@ $HtmlFileContent = @"
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>$NewPageName</title>
     <link rel="stylesheet" href="$CssFileName" />
-    <script src="$JsFileName" defer></script>
+    <script src="$JsFileName" type="module"></script>
   </head>
   <body>
     
   </body>
 </html>
+"@
+$JsFileContent = @"
+document.addEventListener('DOMContentLoaded', () => {
+
+});
 "@
 
 #Get the new page directory and files paths
@@ -46,8 +51,9 @@ New-Item -Path $HtmlFilePath -ItemType File | Out-Null
 New-Item -Path $CssFilePath -ItemType File | Out-Null
 New-Item -Path $JsFilePath -ItemType File | Out-Null
 
-# connect the files via HTML
+# set HTML and JS minimal content
 Set-Content -Path $HtmlFilePath -Value $HtmlFileContent
+Set-Content -Path $JsFilePath -Value $JsFileContent
 
 # Check for quiet mode
 if ($Quiet.IsPresent) {
