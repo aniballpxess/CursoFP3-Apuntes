@@ -11,35 +11,35 @@ export class Record {
      * Creates a new Record.
      * @param {string} date - Date of the action, e.g., "2/3/2026".
      * @param {string} time - Time of the action, e.g., "14:30:00".
-     * @param {string} action - Name/description of the action.
-     * @param {number} withdrawal_amount - Amount withdrawn in the action.
-     * @param {number} balance - Account balance after the action.
+     * @param {string} drink_name - Name of the drink.
+     * @param {number} drink_price - price of the drink.
+     * @param {number} coins_left - Coins left after purchase.
      */
-    constructor(date, time, action, withdrawal_amount, balance) {
+    constructor(date, time, drink_name, drink_price, coins_left) {
         /** @type {string} */
         this.date = date;
         /** @type {string} */
         this.time = time;
         /** @type {string} */
-        this.action = action;
+        this.drink_name = drink_name;
         /** @type {number} */
-        this.withdrawal_amount = withdrawal_amount;
+        this.drink_price = drink_price;
         /** @type {number} */
-        this.balance = balance;
+        this.coins_left = coins_left;
     }
 
     /**
      * Factory: creates a new Record using current date/time and given data.
-     * @param {string} action_name - Name of the action.
-     * @param {number} withdrawal_amount - Amount withdrawn.
-     * @param {number} balance - Account balance after the action.
+     * @param {string} drink_name - Name of the drink.
+     * @param {number} drink_price - price of the drink.
+     * @param {number} coins_left - Coins left after purchase.
      * @returns {Record} Newly created Record instance.
      */
-    static create(action_name, withdrawal_amount, balance) {
+    static create(drink_name, drink_price, coins_left) {
         const now = new Date();
         const date = now.toLocaleDateString();
         const time = now.toLocaleTimeString();
-        return new Record(date, time, action_name, withdrawal_amount, balance);
+        return new Record(date, time, drink_name, drink_price, coins_left);
     }
 
     /**

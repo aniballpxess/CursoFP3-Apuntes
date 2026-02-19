@@ -9,17 +9,53 @@
   </head>
   <body>
     <div id="machine" class="main container">
-      <div id="first-title" class="display-font display-part">1 INSERT COIN</div>
-      <div id="second-title" class="display-font display-part">2 CHOOSE BEVERAGE</div>
-      <div id="third-title" class="display-font display-part">3 TAKE BEVERAGE</div>
+      <div id="display-first-title" class="display-font font-size-L text-left stretch-stretch display-part">1 INSERT COIN</div>
       <div id="first-section" class="container">
-        <button id="coin-btn-50" class="button-normal-L generic-font center-center clickable-grey">.50</button>
-        <button id="coin-btn-1E" class="button-normal-L generic-font center-center clickable-grey">1€</button>
-        <button id="coin-btn-2E" class="button-normal-L generic-font center-center clickable-grey">2€</button>
+        <button id="coin-btn-50" class="generic-font font-size-L stretch-stretch clickable-black button-with-icon" disabled>
+          <img alt=".50" class="center-center" />
+        </button>
+        <button id="coin-btn-1E" class="generic-font font-size-L stretch-stretch clickable-black button-with-icon">
+          <img alt="1€" class="center-center" />
+        </button>
+        <button id="coin-btn-2E" class="generic-font font-size-L stretch-stretch clickable-black button-with-icon">
+          <img alt="2€" class="center-center" />
+        </button>
+        <div id="display-cash" class="display-font font-size-L text-right center-stretch display-part">3.50</div>
+        <button id="act-btn-cancel" class="generic-font font-size-L stretch-stretch clickable-red-2">CANCEL</button>
+        <button id="act-btn-take" class="generic-font font-size-L stretch-stretch clickable-black button-with-icon">
+          <img alt="TAKE" class="center-center" />
+        </button>
       </div>
-      <div id="second-section" class="container"></div>
-      <div id="third-section" class="container"></div>
-      <div id="lower-section" class="container"></div>
+      <div id="display-second-title" class="display-font font-size-L text-left stretch-stretch display-part">2 CHOOSE BEVERAGE</div>
+      <div id="second-section" class="container">
+        <button id="drink-btn-cola" class="generic-font font-size-L stretch-stretch clickable-black button-with-icon">
+          <img alt="Coca Cola" class="center-center" />
+        </button>
+        <button id="drink-btn-lemon" class="generic-font font-size-L stretch-stretch clickable-black button-with-icon">
+          <img alt="Fanta Lemon" class="center-center" />
+        </button>
+        <button id="drink-btn-orange" class="generic-font font-size-L stretch-stretch clickable-black button-with-icon">
+          <img alt="Fanta Orange" class="center-center" />
+        </button>
+        <button id="drink-btn-jd" class="generic-font font-size-L stretch-stretch clickable-black button-with-icon">
+          <img alt="JD's Coca Cola" class="center-center" />
+        </button>
+        <div id="display-price-cola" class="display-font font-size-L text-right center-stretch display-part">1.50</div>
+        <div id="display-price-lemon" class="display-font font-size-L text-right center-stretch display-part">1.50</div>
+        <div id="display-price-orange" class="display-font font-size-L text-right center-stretch display-part">1.50</div>
+        <div id="display-price-jd" class="display-font font-size-L text-right center-stretch display-part">4.00</div>
+      </div>
+      <div id="display-third-title" class="display-font font-size-L text-left stretch-stretch display-part">3 TAKE BEVERAGE</div>
+      <div id="third-section" class="container">
+        <button id="act-btn-drink" class="generic-font font-size-L stretch-stretch clickable-black button-with-icon">
+          <img id="display-selected" alt="NO DRINK SELECTED" class="center-center" src="../../res/images/Beverages_-_Enabled/Coca_Cola.jpg" />
+        </button>
+      </div>
+      <div id="lower-section" class="container">
+        <button id="act-btn-records" class="generic-font text-center center-center clickable-grey button-history">INFORME</button>
+        <button id="helper-btn-tab" class="generic-font text-center center-center clickable-red button-helper">SIGUIENTE</button>
+        <button id="helper-btn-enter" class="generic-font text-center center-center clickable-green button-helper">ACCIONAR</button>
+      </div>
     </div>
   </body>
 </html>

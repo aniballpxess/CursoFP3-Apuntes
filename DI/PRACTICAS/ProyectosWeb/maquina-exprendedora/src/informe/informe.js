@@ -65,19 +65,17 @@ document.addEventListener('DOMContentLoaded', () => {
             tr.appendChild(td);
 
             td = document.createElement('td');
-            td.textContent = record.action;
+            td.textContent = record.drink_name;
             td.className = 'with-text';
             tr.appendChild(td);
 
             td = document.createElement('td');
-            if (record.withdrawal_amount !== 0) {
-                td.textContent = record.withdrawal_amount;
-            }
+            td.textContent = record.drink_price.toFixed(2);
             td.className = 'with-text';
             tr.appendChild(td);
 
             td = document.createElement('td');
-            td.textContent = record.balance;
+            td.textContent = record.coins_left.toFixed(2);
             td.className = 'with-text';
             tr.appendChild(td);
 
