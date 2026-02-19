@@ -1,0 +1,516 @@
+/* --- GENERAL CLASSES & DEFINITIONS --- */
+@font-face {
+  font-family: 'Digital-7';
+  src: url('../../res/fonts/Digital-7.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:focus {
+  outline: 0.3rem solid #99ccff;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 100vh;
+  background: #dddddd;
+}
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+h1 {
+  font-size: 1.6rem;
+  margin-block: 0.4rem;
+}
+table {
+  font-size: 1rem;
+  background-color: #333333;
+}
+thead {
+  background-color: #111177;
+  color: #eeeeee;
+}
+th {
+  font-weight: 600;
+}
+tbody {
+  background-color: #eeeeee;
+  color: #333333;
+}
+td {
+  font-weight: 300;
+}
+
+.main {
+  background-color: #777777;
+  padding: 0.2rem;
+  min-width: max-content;
+  min-height: max-content;
+}
+
+.container {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.display-part {
+  background-color: #333333;
+  color: #bbff66;
+  font-size: 2.4rem;
+  line-height: 100%;
+}
+
+/* --- Font classes --- */
+.display-font {
+  font-family: 'Digital-7';
+  padding: 0.2rem;
+  line-height: 100%;
+}
+.generic-font {
+  font-family: monospace;
+  padding: 0.2rem;
+  line-height: 100%;
+}
+
+.font-size-M {
+  font-size: 1.2rem;
+}
+.font-size-L {
+  font-size: 2.4rem;
+}
+
+/* --- Button classes --- */
+.button-with-icon {
+  border-radius: 0.6rem;
+  box-sizing: border-box;
+  border-width: 0.3rem;
+  border-style: solid;
+}
+.button-history {
+  height: 3rem;
+  width: 12rem;
+  font-size: 1.5rem;
+}
+.button-helper {
+  height: 6rem;
+  width: 9rem;
+  font-size: 1.5rem;
+}
+
+/* --- Clickable classes --- */
+.clickable-black,
+.clickable-black:active {
+  background-color: #222222;
+  color: #dddddd;
+  cursor: pointer;
+}
+.clickable-black {
+  border-color: #dddddd;
+}
+.clickable-black:active {
+  border-color: #555555;
+}
+.clickable-black:disabled,
+.clickable-black:disabled:active {
+  border-color: #999999;
+  background-color: #222222;
+  color: #999999;
+  cursor: not-allowed;
+}
+
+.clickable-white,
+.clickable-white:active {
+  border-color: #777777;
+  color: #777777;
+  cursor: pointer;
+}
+.clickable-white {
+  background-color: #ffffff;
+}
+.clickable-white:active {
+  background-color: #cccccc;
+}
+.clickable-white:disabled,
+.clickable-white:disabled:active {
+  border-color: #cccccc;
+  background-color: #ffffff;
+  color: #cccccc;
+  cursor: not-allowed;
+}
+
+.clickable-grey,
+.clickable-grey:active {
+  border-color: #555555;
+  color: #555555;
+  cursor: pointer;
+}
+.clickable-grey {
+  background-color: #bbbbbb;
+}
+.clickable-grey:active {
+  background-color: #999999;
+}
+.clickable-grey:disabled,
+.clickable-grey:disabled:active {
+  border-color: #999999;
+  background-color: #bbbbbb;
+  color: #999999;
+  cursor: not-allowed;
+}
+
+.clickable-green,
+.clickable-green:active {
+  border-color: #446644;
+  color: #446644;
+  cursor: pointer;
+}
+.clickable-green {
+  background-color: #88aa88;
+}
+.clickable-green:active {
+  background-color: #668866;
+}
+.clickable-green:disabled,
+.clickable-green:disabled:active {
+  border-color: #668866;
+  background-color: #88aa88;
+  color: #668866;
+  cursor: not-allowed;
+}
+
+.clickable-red,
+.clickable-red:active {
+  border-color: #774444;
+  color: #774444;
+  cursor: pointer;
+}
+.clickable-red {
+  background-color: #bb8888;
+}
+.clickable-red:active {
+  background-color: #886666;
+}
+.clickable-red:disabled,
+.clickable-red:disabled:active {
+  border-color: #886666;
+  background-color: #bb8888;
+  color: #886666;
+  cursor: not-allowed;
+}
+
+.clickable-red-2,
+.clickable-red-2:active {
+  border-color: #444444;
+  color: #eeeeee;
+  cursor: pointer;
+}
+.clickable-red-2 {
+  background-color: #ee0000;
+}
+.clickable-red-2:active {
+  background-color: #bb0000;
+}
+.clickable-red-2:disabled,
+.clickable-red-2:disabled:active {
+  border-color: #444444;
+  background-color: #999999;
+  color: #eeeeee;
+  cursor: not-allowed;
+}
+
+/* --- Text aligning classes --- */
+.text-left {
+  text-align: start;
+}
+.text-right {
+  text-align: end;
+}
+.text-center {
+  text-align: center;
+}
+.text-justify {
+  text-align: justify;
+}
+
+/* --- Element aligning classes --- */
+.top-left {
+  align-self: start;
+  justify-self: start;
+}
+.top-center {
+  align-self: start;
+  justify-self: center;
+}
+.top-right {
+  align-self: start;
+  justify-self: end;
+}
+.top-stretch {
+  align-self: start;
+  justify-self: stretch;
+}
+
+.center-left {
+  align-self: center;
+  justify-self: start;
+}
+.center-center {
+  align-self: center;
+  justify-self: center;
+}
+.center-right {
+  align-self: center;
+  justify-self: end;
+}
+.center-stretch {
+  align-self: center;
+  justify-self: stretch;
+}
+
+.bottom-left {
+  align-self: end;
+  justify-self: start;
+}
+.bottom-center {
+  align-self: end;
+  justify-self: center;
+}
+.bottom-right {
+  align-self: end;
+  justify-self: end;
+}
+.bottom-stretch {
+  align-self: end;
+  justify-self: stretch;
+}
+
+.stretch-left {
+  align-self: stretch;
+  justify-self: start;
+}
+.stretch-center {
+  align-self: stretch;
+  justify-self: center;
+}
+.stretch-right {
+  align-self: stretch;
+  justify-self: end;
+}
+.stretch-stretch {
+  align-self: stretch;
+  justify-self: stretch;
+}
+
+/* --- STRUCTURE OF ELEMENTS --- */
+
+/* Main ------------------------------------------------ */
+#machine {
+  grid-template-columns: repeat(18, 3rem);
+  grid-template-rows: repeat(12, 3rem);
+}
+#first-section {
+  grid-column: 1 / span 6;
+  grid-row: 1 / span 8;
+}
+#second-section {
+  grid-column: 7 / span 6;
+  grid-row: 1 / span 8;
+}
+#third-section {
+  grid-column: 13 / span 6;
+  grid-row: 1 / span 8;
+}
+#lower-section {
+  grid-column: 1 / span 18;
+  grid-row: 9 / span 4;
+}
+/* ----------------------------------------------------- */
+
+/* First Section --------------------------------------- */
+#first-section {
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(5, calc(100% / 5));
+}
+#display-01 {
+  grid-column: 1;
+  grid-row: 1;
+}
+#act-btn-01 {
+  grid-column: 1;
+  grid-row: 2;
+}
+#act-btn-02 {
+  grid-column: 1;
+  grid-row: 3;
+}
+#act-btn-03 {
+  grid-column: 1;
+  grid-row: 4;
+}
+#act-btn-04 {
+  grid-column: 1;
+  grid-row: 5;
+}
+/* ----------------------------------------------------- */
+
+/* Second Section --------------------------------------- */
+#second-section {
+  grid-template-columns: repeat(3, calc(100% / 3));
+  grid-template-rows: repeat(4, calc(100% / 4));
+}
+#typing-btn-9 {
+  grid-column: 3;
+  grid-row: 1;
+}
+#typing-btn-8 {
+  grid-column: 2;
+  grid-row: 1;
+}
+#typing-btn-7 {
+  grid-column: 1;
+  grid-row: 1;
+}
+#typing-btn-6 {
+  grid-column: 3;
+  grid-row: 2;
+}
+#typing-btn-5 {
+  grid-column: 2;
+  grid-row: 2;
+}
+#typing-btn-4 {
+  grid-column: 1;
+  grid-row: 2;
+}
+#typing-btn-3 {
+  grid-column: 3;
+  grid-row: 3;
+}
+#typing-btn-2 {
+  grid-column: 2;
+  grid-row: 3;
+}
+#typing-btn-1 {
+  grid-column: 1;
+  grid-row: 3;
+}
+#act-btn-09 {
+  grid-column: 1;
+  grid-row: 4;
+}
+#typing-btn-0 {
+  grid-column: 2;
+  grid-row: 4;
+}
+#act-btn-10 {
+  grid-column: 3;
+  grid-row: 4;
+}
+/* ----------------------------------------------------- */
+
+/* Third Section --------------------------------------- */
+#third-section {
+  grid-template-columns: 100%;
+  grid-template-rows: repeat(5, calc(100% / 5));
+}
+#display-02 {
+  grid-column: 1;
+  grid-row: 1;
+}
+#act-btn-05 {
+  grid-column: 1;
+  grid-row: 2;
+}
+#act-btn-06 {
+  grid-column: 1;
+  grid-row: 3;
+}
+#act-btn-07 {
+  grid-column: 1;
+  grid-row: 4;
+}
+#act-btn-08 {
+  grid-column: 1;
+  grid-row: 5;
+}
+/* ----------------------------------------------------- */
+
+/* Lower section --------------------------------------- */
+#lower-section {
+  grid-template-columns: 1fr 1fr 2fr;
+  grid-template-rows: 1fr;
+}
+#helper-btn-tab {
+  grid-column: 1;
+  grid-row: 1;
+}
+#helper-btn-enter {
+  grid-column: 2;
+  grid-row: 1;
+}
+#act-btn-records {
+  grid-column: 3;
+  grid-row: 1;
+}
+/* ----------------------------------------------------- */
+
+/* --- ICONS OF BUTTONS --- */
+
+/* First buttons --------------------------------------- */
+#act-btn-01 img {
+  content: url('../../res/images');
+}
+#act-btn-01:disabled img {
+  content: url('../../res/images');
+}
+#act-btn-02 img {
+  content: url('../../res/images');
+}
+#act-btn-02:disabled img {
+  content: url('../../res/images');
+}
+#act-btn-03 img {
+  content: url('../../res/images');
+}
+#act-btn-03:disabled img {
+  content: url('../../res/images');
+}
+#act-btn-04 img {
+  content: url('../../res/images');
+}
+#act-btn-04:disabled img {
+  content: url('../../res/images');
+}
+/* ----------------------------------------------------- */
+
+/* Second buttons -------------------------------------- */
+#act-btn-05 img {
+  content: url('../../res/images');
+}
+#act-btn-05:disabled img {
+  content: url('../../res/images');
+}
+#act-btn-06 img {
+  content: url('../../res/images');
+}
+#act-btn-06:disabled img {
+  content: url('../../res/images');
+}
+#act-btn-07 img {
+  content: url('../../res/images');
+}
+#act-btn-07:disabled img {
+  content: url('../../res/images');
+}
+#act-btn-08 img {
+  content: url('../../res/images');
+}
+#act-btn-08:disabled img {
+  content: url('../../res/images');
+}
+/* ----------------------------------------------------- */

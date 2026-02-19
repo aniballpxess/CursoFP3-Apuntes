@@ -1,0 +1,256 @@
+/* --- GENERAL CLASSES & DEFINITIONS --- */
+:focus {
+  outline: 0.2rem solid #99ccff;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  height: 100vh;
+  background: #dddddd;
+}
+h1 {
+  font-size: 1.6rem;
+  margin-block: 0.4rem;
+}
+table {
+  font-size: 1rem;
+  background-color: #333333;
+}
+thead {
+  background-color: #111177;
+  color: #eeeeee;
+}
+th {
+  font-weight: 600;
+}
+tbody {
+  background-color: #eeeeee;
+  color: #333333;
+}
+td {
+  font-weight: 300;
+}
+
+.main {
+  background-color: #777777;
+  padding: 0.2rem;
+  min-width: max-content;
+  min-height: max-content;
+}
+
+.container {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.display-part {
+  background-color: #333333;
+  color: #bbbbbb;
+  font-size: 1rem;
+  line-height: 200%;
+}
+
+.with-text {
+  font-family: monospace;
+  text-align: center;
+  padding: 0.2rem;
+}
+
+.record {
+  background-color: #333333;
+  color: #999999;
+  padding: 0.4rem;
+  font-size: 1.2rem;
+}
+
+/* Button definitions */
+.button-normal {
+  height: 3rem;
+  width: 3rem;
+  font-size: 1.2rem;
+  line-height: 100%;
+}
+.button-large {
+  height: 3rem;
+  width: 12rem;
+  font-size: 1.2rem;
+  line-height: 100%;
+}
+.button-helper {
+  height: 6rem;
+  width: 9rem;
+  font-size: 1.5rem;
+  line-height: 100%;
+}
+
+/* Clickable definitions */
+.clickable-grey,
+.clickable-grey:active {
+  border-color: #555555;
+  color: #555555;
+  cursor: pointer;
+}
+.clickable-grey {
+  background-color: #bbbbbb;
+}
+.clickable-grey:active {
+  background-color: #999999;
+}
+.clickable-grey:disabled,
+.clickable-grey:disabled:active {
+  border-color: #999999;
+  background-color: #bbbbbb;
+  color: #999999;
+  cursor: not-allowed;
+}
+
+.clickable-green,
+.clickable-green:active {
+  border-color: #446644;
+  color: #446644;
+  cursor: pointer;
+}
+.clickable-green {
+  background-color: #88aa88;
+}
+.clickable-green:active {
+  background-color: #668866;
+}
+.clickable-green:disabled,
+.clickable-green:disabled:active {
+  border-color: #668866;
+  background-color: #88aa88;
+  color: #668866;
+  cursor: not-allowed;
+}
+
+.clickable-red,
+.clickable-red:active {
+  border-color: #774444;
+  color: #774444;
+  cursor: pointer;
+}
+.clickable-red {
+  background-color: #bb8888;
+}
+.clickable-red:active {
+  background-color: #886666;
+}
+.clickable-red:disabled,
+.clickable-red:disabled:active {
+  border-color: #886666;
+  background-color: #bb8888;
+  color: #886666;
+  cursor: not-allowed;
+}
+
+/* Aligning definitions */
+.top-left {
+  align-self: start;
+  justify-self: start;
+}
+.top-center {
+  align-self: start;
+  justify-self: center;
+}
+.top-right {
+  align-self: start;
+  justify-self: end;
+}
+.top-stretch {
+  align-self: start;
+  justify-self: stretch;
+}
+
+.center-left {
+  align-self: center;
+  justify-self: start;
+}
+.center-center {
+  align-self: center;
+  justify-self: center;
+}
+.center-right {
+  align-self: center;
+  justify-self: end;
+}
+.center-stretch {
+  align-self: center;
+  justify-self: stretch;
+}
+
+.bottom-left {
+  align-self: end;
+  justify-self: start;
+}
+.bottom-center {
+  align-self: end;
+  justify-self: center;
+}
+.bottom-right {
+  align-self: end;
+  justify-self: end;
+}
+.bottom-stretch {
+  align-self: end;
+  justify-self: stretch;
+}
+
+.stretch-left {
+  align-self: stretch;
+  justify-self: start;
+}
+.stretch-center {
+  align-self: stretch;
+  justify-self: center;
+}
+.stretch-right {
+  align-self: stretch;
+  justify-self: end;
+}
+.stretch-stretch {
+  align-self: stretch;
+  justify-self: stretch;
+}
+
+/* --- STRUCTURE OF ELEMENTS --- */
+
+/* Main ------------------------------------------------ */
+#history {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 6fr 2fr 2fr;
+}
+#page-title {
+  grid-column: 1 / 7;
+  grid-row: 1;
+}
+#records-table {
+  grid-column: 1 / 7;
+  grid-row: 2;
+}
+#act-btn-reset {
+  grid-column: 3 / 5;
+  grid-row: 3;
+}
+#act-btn-close {
+  grid-column: 5 / 7;
+  grid-row: 3;
+}
+#helper-btn-tab {
+  grid-column: 1 / 4;
+  grid-row: 4;
+}
+#helper-btn-enter {
+  grid-column: 4 / 7;
+  grid-row: 4;
+}
+/* ----------------------------------------------------- */
+
+/* --- SPECIFIC ELEMENTS OVERRIDES --- */
+
+#records-table {
+  max-height: 20rem;
+  overflow-y: scroll;
+}
