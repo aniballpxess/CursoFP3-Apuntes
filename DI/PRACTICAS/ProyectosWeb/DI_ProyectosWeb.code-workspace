@@ -1,11 +1,11 @@
 {
     "folders": [
         {
-            "path": "."
-        }
+            "path": ".",
+        },
     ],
     "settings": {
         "css.styleSheets": ["**/${fileBasenameNoExtension}.css"],
-        "workbench.colorTheme": "Monokai Dimmed"
-    }
+        "workbench.colorTheme": "Monokai Dimmed",
+    },
 }

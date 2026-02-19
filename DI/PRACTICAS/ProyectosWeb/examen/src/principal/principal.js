@@ -1,5 +1,5 @@
 /* eslint-disable no-self-assign */
-import { Record, loadRecords, saveRecords } from '../record.js';
+import { Record } from '../record.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     // --- UI Elements ------------------------------------------------------ //
@@ -8,64 +8,28 @@ document.addEventListener('DOMContentLoaded', () => {
         buttons: {
             actions: {
                 /** @type {HTMLButtonElement} */
-                a01: document.getElementById('act-btn-01'),
+                signup: document.getElementById('act-btn-01'),
                 /** @type {HTMLButtonElement} */
-                a02: document.getElementById('act-btn-02'),
+                modif: document.getElementById('act-btn-02'),
                 /** @type {HTMLButtonElement} */
-                a03: document.getElementById('act-btn-03'),
+                delete: document.getElementById('act-btn-03'),
                 /** @type {HTMLButtonElement} */
-                a04: document.getElementById('act-btn-04'),
+                next: document.getElementById('act-btn-04'),
                 /** @type {HTMLButtonElement} */
-                a05: document.getElementById('act-btn-05'),
+                prev: document.getElementById('act-btn-05'),
                 /** @type {HTMLButtonElement} */
-                a06: document.getElementById('act-btn-06'),
+                accept: document.getElementById('act-btn-06'),
                 /** @type {HTMLButtonElement} */
-                a07: document.getElementById('act-btn-07'),
-                /** @type {HTMLButtonElement} */
-                a08: document.getElementById('act-btn-08'),
-                /** @type {HTMLButtonElement} */
-                a09: document.getElementById('act-btn-09'),
-                /** @type {HTMLButtonElement} */
-                a10: document.getElementById('act-btn-10'),
-                /** @type {HTMLButtonElement} */
-                records: document.getElementById('act-btn-records'),
-            },
-            typing: {
-                /** @type {HTMLButtonElement} */
-                _0: document.getElementById('typing-btn-0'),
-                /** @type {HTMLButtonElement} */
-                _1: document.getElementById('typing-btn-1'),
-                /** @type {HTMLButtonElement} */
-                _2: document.getElementById('typing-btn-2'),
-                /** @type {HTMLButtonElement} */
-                _3: document.getElementById('typing-btn-3'),
-                /** @type {HTMLButtonElement} */
-                _4: document.getElementById('typing-btn-4'),
-                /** @type {HTMLButtonElement} */
-                _5: document.getElementById('typing-btn-5'),
-                /** @type {HTMLButtonElement} */
-                _6: document.getElementById('typing-btn-6'),
-                /** @type {HTMLButtonElement} */
-                _7: document.getElementById('typing-btn-7'),
-                /** @type {HTMLButtonElement} */
-                _8: document.getElementById('typing-btn-8'),
-                /** @type {HTMLButtonElement} */
-                _9: document.getElementById('typing-btn-9'),
-            },
-            helpers: {
-                /** @type {HTMLButtonElement} */
-                tab: document.getElementById('helper-btn-tab'),
-                /** @type {HTMLButtonElement} */
-                enter: document.getElementById('helper-btn-enter'),
+                cancel: document.getElementById('act-btn-07'),
             },
         },
         displays: {
             /** @type {HTMLInputElement} */
+            name: document.getElementById('display-01'),
+            /** @type {HTMLInputElement} */
+            phone: document.getElementById('display-02'),
             /** @type {HTMLDivElement} */
-            primary: document.getElementById('display-01'),
-            /** @type {HTMLDivElement} */
-            /** @type {HTMLImageElement} */
-            secondary: document.getElementById('display-02'),
+            info: document.getElementById('display-03'),
         },
     };
     // ---------------------------------------------------------------------- //
@@ -75,31 +39,22 @@ document.addEventListener('DOMContentLoaded', () => {
     // Constants
     /** @enum {string} */
     const STATE = Object.freeze({
-        ONE: 'ONE',
-        TWO: 'TWO',
-        THREE: 'THREE',
-        FOUR: 'FOUR',
-        FIVE: 'FIVE',
-        SIX: 'SIX',
-        SEVEN: 'SEVEN',
-        EIGHT: 'EIGHT',
-        NINE: 'NIVE',
-        TEN: 'TEN',
+        RECORRIDO: 'RECORRIDO',
+        ALTA: 'ALTA',
+        MODIFICACION: 'MODIFICACION',
+        BAJA: 'BAJA',
+        ERROR: 'ERROR',
     });
     /** @enum {string} */
     const ACTION = Object.freeze({
-        ONE: 'ONE',
-        TWO: 'TWO',
-        THREE: 'THREE',
-        FOUR: 'FOUR',
-        FIVE: 'FIVE',
-        SIX: 'SIX',
-        SEVEN: 'SEVEN',
-        EIGHT: 'EIGHT',
-        NINE: 'NIVE',
-        TEN: 'TEN',
+        ACEPTAR: 'ACEPTAR',
+        CANCELAR: 'CANCELAR',
+        DAR_ALTA: 'DAR_ALTA',
+        MODIFICAR: 'MODIFICAR',
+        DAR_BAJA: 'DAR_BAJA',
+        NEXT: 'NEXT',
+        PREV: 'PREV',
         OPEN_RECORDS: 'ELEVEN',
-        TYPE_DIGIT: 'TWELVE',
     });
     /** @enum {string} */
     const EVENT = Object.freeze({
@@ -108,47 +63,9 @@ document.addEventListener('DOMContentLoaded', () => {
         STORAGE: 'storage',
         CHANGE: 'change',
     });
-    /** @enum {number} */
-    const DIGIT = Object.freeze({
-        ONE: 1,
-        TWO: 2,
-        THREE: 3,
-        FOUR: 4,
-        FIVE: 5,
-        SIX: 6,
-        SEVEN: 7,
-        EIGHT: 8,
-        NINE: 9,
-        ZERO: 0,
-    });
 
     /** @type {STATE} */
-    const DEFAULT_STATE = STATE.AWAIT_CARD_IN;
-
-    /** @type {HTMLButtonElement[]} */
-    const BUTTONS = [];
-    BUTTONS.push(UI.actions.a01);
-    BUTTONS.push(UI.actions.a02);
-    BUTTONS.push(UI.actions.a03);
-    BUTTONS.push(UI.actions.a04);
-    BUTTONS.push(UI.actions.a05);
-    BUTTONS.push(UI.actions.a06);
-    BUTTONS.push(UI.actions.a07);
-    BUTTONS.push(UI.actions.a08);
-    BUTTONS.push(UI.actions.a09);
-    BUTTONS.push(UI.actions.a10);
-    BUTTONS.push(UI.typing.btn0);
-    BUTTONS.push(UI.typing.btn1);
-    BUTTONS.push(UI.typing.btn2);
-    BUTTONS.push(UI.typing.btn3);
-    BUTTONS.push(UI.typing.btn4);
-    BUTTONS.push(UI.typing.btn5);
-    BUTTONS.push(UI.typing.btn6);
-    BUTTONS.push(UI.typing.btn7);
-    BUTTONS.push(UI.typing.btn8);
-    BUTTONS.push(UI.typing.btn9);
-    BUTTONS.push(UI.helpers.enter);
-    BUTTONS.push(UI.helpers.tab);
+    const DEFAULT_STATE = STATE.RECORRIDO;
 
     // Variables
     /** @type {STATE} */
@@ -159,18 +76,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let current_trigger = null;
 
     /** @type {Record[]} */
-    let records = null;
-    /** @type {HTMLButtonElement[]} */
-    let focusable_buttons = [];
+    let records = [];
 
     /** @type {number} */
-    let amount = 0;
-    /** @type {DRINK} */
-    let selected_drink_name = null;
-    /** @type {IMAGE} */
-    let selected_drink_image = null;
-    /** @type {PRICE} */
-    let selected_drink_price = null;
+    let current_index = 0;
+    /** @type {string} */
+    let new_name = null;
+    /** @type {Record} */
+    let current_register = null;
+    /** @type {number} */
+    let new_phone = null;
 
     // Functions
     /**
@@ -185,7 +100,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateState();
         updateInternals();
         updateExternals();
-        updateFocusableButtons();
 
         current_action = null;
         current_trigger = null;
@@ -196,44 +110,41 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function runAction() {
         switch (current_action) {
-            case ACTION.ONE:
-                registerAction();
+            case ACTION.ACEPTAR:
+                if (current_state === STATE.ALTA) {
+                    registerData();
+                }
+                if (current_state === STATE.MODIFICACION) {
+                    modifyData();
+                }
                 break;
 
-            case ACTION.TWO:
-                getDigit();
+            case ACTION.CANCELAR:
                 break;
 
-            case ACTION.THREE:
+            case ACTION.DAR_ALTA:
                 break;
 
-            case ACTION.FOUR:
+            case ACTION.MODIFICAR:
                 break;
 
-            case ACTION.FIVE:
+            case ACTION.DAR_BAJA:
                 break;
 
-            case ACTION.SIX:
+            case ACTION.NEXT:
+                current_index = (current_index + 1) % records.length;
                 break;
 
-            case ACTION.SEVEN:
-                break;
-
-            case ACTION.EIGHT:
-                break;
-
-            case ACTION.NINE:
-                break;
-
-            case ACTION.TEN:
+            case ACTION.PREV:
+                if (current_index === 0) {
+                    current_index = records.length - 1;
+                    break;
+                }
+                current_index = current_index - 1;
                 break;
 
             case ACTION.OPEN_RECORDS:
                 openRecordsTab();
-                break;
-
-            case ACTION.TYPE_DIGIT:
-                getDigit();
                 break;
         }
     }
@@ -248,50 +159,21 @@ document.addEventListener('DOMContentLoaded', () => {
     /**
      *
      */
-    function getDigit() {
-        let typed_digit;
-        switch (current_trigger) {
-            case UI.buttons.typing._0:
-                typed_digit = DIGIT.ZERO;
-                break;
-            case UI.buttons.typing._1:
-                typed_digit = DIGIT.ONE;
-                break;
-            case UI.buttons.typing._2:
-                typed_digit = DIGIT.TWO;
-                break;
-            case UI.buttons.typing._3:
-                typed_digit = DIGIT.THREE;
-                break;
-            case UI.buttons.typing._4:
-                typed_digit = DIGIT.FOUR;
-                break;
-            case UI.buttons.typing._5:
-                typed_digit = DIGIT.FIVE;
-                break;
-            case UI.buttons.typing._6:
-                typed_digit = DIGIT.SIX;
-                break;
-            case UI.buttons.typing._7:
-                typed_digit = DIGIT.SEVEN;
-                break;
-            case UI.buttons.typing._8:
-                typed_digit = DIGIT.EIGHT;
-                break;
-            case UI.buttons.typing._9:
-                typed_digit = DIGIT.NINE;
-                break;
-        }
-        amount = amount * 10 + typed_digit;
+    function registerData() {
+        new_name = UI.displays.name.textContent;
+        new_phone = UI.displays.phone.textContent;
+        const record = Record.create(new_name, new_phone);
+        records.push(record);
     }
 
     /**
      *
      */
-    function registerAction() {
-        const record = Record.create(selected_drink_name, selected_drink_price, amount);
-        records.push(record);
-        saveRecords(records);
+    function modifyData() {
+        new_name = UI.displays.name.textContent;
+        new_phone = UI.displays.phone.textContent;
+        const record = Record.create(new_name, new_phone);
+        records[current_index] = record;
     }
 
     /**
@@ -299,38 +181,52 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function updateState() {
         switch (current_state) {
-            case STATE.ONE:
-                if (current_action === ACTION.ONE) {
-                    current_state = STATE.TWO;
+            case STATE.RECORRIDO:
+                if (current_action === ACTION.DAR_ALTA) {
+                    current_state = STATE.ALTA;
+                    break;
+                }
+                if (current_action === ACTION.MODIFICAR) {
+                    current_state = STATE.MODIFICACION;
+                    break;
+                }
+                if (current_action === ACTION.DAR_BAJA) {
+                    current_state = STATE.BAJA;
                     break;
                 }
                 break;
 
-            case STATE.TWO:
+            case STATE.ALTA:
+                if (current_action === ACTION.ACEPTAR) {
+                    current_state = STATE.RECORRIDO;
+                    break;
+                }
+                if (current_action === ACTION.CANCELAR) {
+                    current_state = STATE.RECORRIDO;
+                    break;
+                }
                 break;
 
-            case STATE.THREE:
+            case STATE.MODIFICACION:
+                if (current_action === ACTION.ACEPTAR) {
+                    current_state = STATE.RECORRIDO;
+                    break;
+                }
+                if (current_action === ACTION.CANCELAR) {
+                    current_state = STATE.RECORRIDO;
+                    break;
+                }
                 break;
 
-            case STATE.FOUR:
-                break;
-
-            case STATE.FIVE:
-                break;
-
-            case STATE.SIX:
-                break;
-
-            case STATE.SEVEN:
-                break;
-
-            case STATE.EIGHT:
-                break;
-
-            case STATE.NINE:
-                break;
-
-            case STATE.TEN:
+            case STATE.BAJA:
+                if (current_action === ACTION.ACEPTAR) {
+                    current_state = STATE.RECORRIDO;
+                    break;
+                }
+                if (current_action === ACTION.CANCELAR) {
+                    current_state = STATE.RECORRIDO;
+                    break;
+                }
                 break;
         }
     }
@@ -340,38 +236,32 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function updateInternals() {
         switch (current_state) {
-            case STATE.ONE:
-                amount = amount;
-                selected_drink_name = null;
-                selected_drink_image = null;
-                selected_drink_price = null;
+            case STATE.RECORRIDO:
+                current_index = current_index;
+                current_register = records[current_index];
+                new_name = null;
+                new_phone = null;
                 break;
 
-            case STATE.TWO:
+            case STATE.ALTA:
+                current_index = current_index;
+                current_register = records[current_index];
+                new_name = new_name;
+                new_phone = new_phone;
                 break;
 
-            case STATE.THREE:
+            case STATE.MODIFICACION:
+                current_index = current_index;
+                current_register = records[current_index];
+                new_name = new_name;
+                new_phone = new_phone;
                 break;
 
-            case STATE.FOUR:
-                break;
-
-            case STATE.FIVE:
-                break;
-
-            case STATE.SIX:
-                break;
-
-            case STATE.SEVEN:
-                break;
-
-            case STATE.EIGHT:
-                break;
-
-            case STATE.NINE:
-                break;
-
-            case STATE.TEN:
+            case STATE.BAJA:
+                current_index = current_index;
+                current_register = records[current_index];
+                new_name = null;
+                new_phone = null;
                 break;
         }
     }
@@ -381,146 +271,107 @@ document.addEventListener('DOMContentLoaded', () => {
      */
     function updateExternals() {
         switch (current_state) {
-            case STATE.ONE:
-                UI.buttons.typing._0.disabled = false;
-                UI.buttons.typing._1.disabled = false;
-                UI.buttons.typing._2.disabled = false;
-                UI.buttons.typing._3.disabled = false;
-                UI.buttons.typing._4.disabled = false;
-                UI.buttons.typing._5.disabled = false;
-                UI.buttons.typing._6.disabled = false;
-                UI.buttons.typing._7.disabled = false;
-                UI.buttons.typing._8.disabled = false;
-                UI.buttons.typing._9.disabled = false;
+            case STATE.RECORRIDO:
+                UI.displays.name.disabled = true;
+                UI.displays.phone.disabled = true;
 
-                UI.buttons.actions.a01.disabled = true;
-                UI.buttons.actions.a02.disabled = true;
-                UI.buttons.actions.a03.disabled = true;
-                UI.buttons.actions.a04.disabled = true;
-                UI.buttons.actions.a05.disabled = true;
-                UI.buttons.actions.a06.disabled = true;
-                UI.buttons.actions.a07.disabled = true;
-                UI.buttons.actions.a08.disabled = true;
-                UI.buttons.actions.a09.disabled = true;
-                UI.buttons.actions.a10.disabled = true;
+                UI.buttons.actions.signup.disabled = false;
+                UI.buttons.actions.modif.disabled = false;
+                UI.buttons.actions.delete.disabled = false;
+                UI.buttons.actions.next.disabled = false;
+                UI.buttons.actions.prev.disabled = false;
+                UI.buttons.actions.accept.disabled = true;
+                UI.buttons.actions.cancel.disabled = true;
 
-                UI.buttons.actions.records.disabled = false;
-                UI.buttons.helpers.enter.disabled = false;
-                UI.buttons.helpers.tab.disabled = false;
-
-                UI.displays.primary.textContent = amount.toFixed(2);
-                UI.displays.secondary.src = '';
-                UI.displays.secondary.style.display = 'none';
-                // UI.displays.secondary = selected_drink_image;
-                // UI.displays.secondary = 'block';
+                UI.displays.name.textContent = current_register.name;
+                UI.displays.phone.textContent = current_register.phone;
+                UI.displays.info.textContent = `${STATE.RECORRIDO}: Revise los registros o elija una opción`;
                 break;
 
-            case STATE.TWO:
+            case STATE.ALTA:
+                UI.displays.name.disabled = false;
+                UI.displays.phone.disabled = false;
+
+                UI.buttons.actions.signup.disabled = true;
+                UI.buttons.actions.modif.disabled = true;
+                UI.buttons.actions.delete.disabled = true;
+                UI.buttons.actions.next.disabled = true;
+                UI.buttons.actions.prev.disabled = true;
+                UI.buttons.actions.accept.disabled = false;
+                UI.buttons.actions.cancel.disabled = false;
+
+                UI.displays.name.textContent = '';
+                UI.displays.phone.textContent = '';
+                UI.displays.info.textContent = `${STATE.ALTA}: Introduzca los datos y pulse [Aceptar]`;
                 break;
 
-            case STATE.THREE:
+            case STATE.MODIFICACION:
+                UI.displays.name.disabled = false;
+                UI.displays.phone.disabled = false;
+
+                UI.buttons.actions.signup.disabled = true;
+                UI.buttons.actions.modif.disabled = true;
+                UI.buttons.actions.delete.disabled = true;
+                UI.buttons.actions.next.disabled = true;
+                UI.buttons.actions.prev.disabled = true;
+                UI.buttons.actions.accept.disabled = false;
+                UI.buttons.actions.cancel.disabled = false;
+
+                UI.displays.name.textContent = '';
+                UI.displays.phone.textContent = '';
+                UI.displays.info.textContent = `${STATE.MODIFICACION}: Modifique los datos y pulse [Aceptar]`;
                 break;
 
-            case STATE.FOUR:
-                break;
+            case STATE.BAJA:
+                UI.displays.name.disabled = true;
+                UI.displays.phone.disabled = true;
 
-            case STATE.FIVE:
-                break;
+                UI.buttons.actions.signup.disabled = true;
+                UI.buttons.actions.modif.disabled = true;
+                UI.buttons.actions.delete.disabled = true;
+                UI.buttons.actions.next.disabled = true;
+                UI.buttons.actions.prev.disabled = true;
+                UI.buttons.actions.accept.disabled = false;
+                UI.buttons.actions.cancel.disabled = false;
 
-            case STATE.SIX:
-                break;
-
-            case STATE.SEVEN:
-                break;
-
-            case STATE.EIGHT:
-                break;
-
-            case STATE.NINE:
-                break;
-
-            case STATE.TEN:
+                UI.displays.name.textContent = current_register.name;
+                UI.displays.phone.textContent = current_register.phone;
+                UI.displays.info.textContent = `${STATE.BAJA}: Si está seguro pulse [Aceptar]`;
                 break;
         }
-    }
-
-    /**
-     *
-     */
-    function updateFocusableButtons() {
-        focusable_buttons = BUTTONS.filter(btn => {
-            if (btn.disabled) {
-                return false;
-            }
-            if (btn.tabIndex < 0) {
-                return false;
-            }
-            return true;
-        });
     }
 
     // -------------------------------------------------------------------------- //
 
     // --- EVENT HANDLING ---
 
-    // Typing buttons
-    UI.buttons.typing._0.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.TYPE_DIGIT, ev.currentTarget));
-    UI.buttons.typing._1.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.TYPE_DIGIT, ev.currentTarget));
-    UI.buttons.typing._2.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.TYPE_DIGIT, ev.currentTarget));
-    UI.buttons.typing._3.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.TYPE_DIGIT, ev.currentTarget));
-    UI.buttons.typing._4.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.TYPE_DIGIT, ev.currentTarget));
-    UI.buttons.typing._5.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.TYPE_DIGIT, ev.currentTarget));
-    UI.buttons.typing._6.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.TYPE_DIGIT, ev.currentTarget));
-    UI.buttons.typing._7.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.TYPE_DIGIT, ev.currentTarget));
-    UI.buttons.typing._8.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.TYPE_DIGIT, ev.currentTarget));
-    UI.buttons.typing._9.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.TYPE_DIGIT, ev.currentTarget));
-
     // Action buttons
-    UI.buttons.actions.a01.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.ONE, ev.currentTarget));
-    UI.buttons.actions.a02.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.TWO, ev.currentTarget));
-    UI.buttons.actions.a03.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.THREE, ev.currentTarget));
-    UI.buttons.actions.a04.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.FOUR, ev.currentTarget));
-    UI.buttons.actions.a05.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.FIVE, ev.currentTarget));
-    UI.buttons.actions.a06.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.SIX, ev.currentTarget));
-    UI.buttons.actions.a07.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.SEVEN, ev.currentTarget));
-    UI.buttons.actions.a08.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.EIGHT, ev.currentTarget));
-    UI.buttons.actions.a09.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.NINE, ev.currentTarget));
-    UI.buttons.actions.a10.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.TEN, ev.currentTarget));
-    UI.buttons.actions.records.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.OPEN_RECORDS, ev.currentTarget));
-
-    // Helper buttons
-    UI.buttons.helpers.tab.addEventListener(EVENT.MOUSE_DOWN, ev => {
-        ev.preventDefault();
-
-        const active = document.activeElement;
-        const index = focusable_buttons.indexOf(active);
-        const next = (index + 1) % focusable_buttons.length;
-
-        focusable_buttons[next].focus();
-    });
-    UI.buttons.helpers.enter.addEventListener(EVENT.MOUSE_DOWN, ev => {
-        ev.preventDefault();
-
-        if (document.activeElement) {
-            document.activeElement.click();
-        }
-    });
+    UI.buttons.actions.signup.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.DAR_ALTA, ev.currentTarget));
+    UI.buttons.actions.modif.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.MODIFICAR, ev.currentTarget));
+    UI.buttons.actions.delete.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.DAR_BAJA, ev.currentTarget));
+    UI.buttons.actions.next.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.NEXT, ev.currentTarget));
+    UI.buttons.actions.prev.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.PREV, ev.currentTarget));
+    UI.buttons.actions.accept.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.ACEPTAR, ev.currentTarget));
+    UI.buttons.actions.cancel.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.CANCELAR, ev.currentTarget));
 
     // Storage change
-    window.addEventListener(EVENT.STORAGE, ev => {
-        if (ev.key === 'records') {
-            records = loadRecords();
-        }
-    });
+    // window.addEventListener(EVENT.STORAGE, ev => {
+    //     if (ev.key === 'records') {
+    //         records = loadRecords();
+    //     }
+    // });
 
     // -------------------------------------------------------------------------- //
 
     // --- INCIALIZE INTERFACE ---
     current_state = DEFAULT_STATE;
-    records = loadRecords();
+    records.push(Record.create('PEPE', 987654536));
+    records.push(Record.create('MARIA', 19237451));
+    records.push(Record.create('RAMON', 123457689));
+    records.push(Record.create('SOFIA', 122234123));
+    records.push(Record.create('MIGUEL', 578323612));
     updateInternals();
     updateExternals();
-    updateFocusableButtons();
 
     // -------------------------------------------------------------------------- //
 
