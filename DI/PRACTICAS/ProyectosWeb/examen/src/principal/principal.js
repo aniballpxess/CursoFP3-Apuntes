@@ -63,9 +63,20 @@ document.addEventListener('DOMContentLoaded', () => {
         STORAGE: 'storage',
         CHANGE: 'change',
     });
+    /** @enum {string} */
+    const INFO = Object.freeze({
+        RECORRIDO: `${STATE.RECORRIDO}: Revise los registros o elija una opción`,
+        ALTA: `${STATE.ALTA}: Introduzca los datos y pulse [Aceptar]`,
+        MODIFICACION: `${STATE.MODIFICACION}: Modifique los datos y pulse [Aceptar]`,
+        BAJA: `${STATE.BAJA}: Si está seguro pulse [Aceptar]`,
+        ERROR_VACIO: `${STATE.ERROR}: Alguno de los campos está vacío, pulse [Aceptar] y vuelva a intentarlo`,
+        ERROR_INVALIDO: `${STATE.ERROR}: En el campo del teléfono solo se permiten números, pulse [Aceptar] y vuelva a intentarlo`,
+    });
 
     /** @type {STATE} */
     const DEFAULT_STATE = STATE.RECORRIDO;
+    /** @type {RegExp} */
+    const NUMBER_REGEX = /^\d+$/;
 
     // Variables
     /** @type {STATE} */
@@ -75,13 +86,22 @@ document.addEventListener('DOMContentLoaded', () => {
     /** @type {HTMLInputElement | HTMLButtonElement} */
     let current_trigger = null;
 
+    /** @type {string} */
+    let error_info = '';
+
+    /** @type {STATE} */
+    let last_state = null;
+    /** @type {boolean} */
+    let null_input = false;
+    /** @type {boolean} */
+    let invalid_input = false;
+
     /** @type {Record[]} */
     let records = [];
-
-    /** @type {number} */
-    let current_index = 0;
     /** @type {Record} */
     let current_register = null;
+    /** @type {number} */
+    let current_index = 0;
 
     // Functions
     /**
@@ -161,6 +181,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function registerData() {
         const new_name = UI.displays.name.value;
         const new_phone = UI.displays.phone.value;
+        if (new_name.length === 0 || new_phone.length === 0) {
+            null_input = true;
+            return;
+        }
+        const invalid_phone = !NUMBER_REGEX.test(new_phone);
+        if (invalid_phone) {
+            invalid_input = true;
+            return;
+        }
         const record = Record.create(new_name, new_phone);
         records.push(record);
     }
@@ -171,10 +200,22 @@ document.addEventListener('DOMContentLoaded', () => {
     function modifyData() {
         const new_name = UI.displays.name.value;
         const new_phone = UI.displays.phone.value;
+        if (new_name.length === 0 || new_phone.length === 0) {
+            null_input = true;
+            return;
+        }
+        const invalid_phone = !NUMBER_REGEX.test(new_phone);
+        if (invalid_phone) {
+            invalid_input = true;
+            return;
+        }
         const record = Record.create(new_name, new_phone);
         records[current_index] = record;
     }
 
+    /**
+     *
+     */
     function removeData() {
         records = records.filter(rec => rec !== current_register);
     }
@@ -183,6 +224,18 @@ document.addEventListener('DOMContentLoaded', () => {
      *
      */
     function updateState() {
+        if (null_input) {
+            last_state = current_state;
+            current_state = STATE.ERROR;
+            error_info = INFO.ERROR_VACIO;
+            return;
+        }
+        if (invalid_input) {
+            last_state = current_state;
+            current_state = STATE.ERROR;
+            error_info = INFO.ERROR_INVALIDO;
+            return;
+        }
         switch (current_state) {
             case STATE.RECORRIDO:
                 if (current_action === ACTION.DAR_ALTA) {
@@ -231,6 +284,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     break;
                 }
                 break;
+
+            case STATE.ERROR:
+                if (current_action === ACTION.ACEPTAR) {
+                    current_state = last_state;
+                    break;
+                }
+                break;
         }
     }
 
@@ -242,21 +302,46 @@ document.addEventListener('DOMContentLoaded', () => {
             case STATE.RECORRIDO:
                 current_index = current_index;
                 current_register = records[current_index];
+                null_input = false;
+                invalid_input = false;
+                last_state = null;
+                error_info = '';
                 break;
 
             case STATE.ALTA:
                 current_index = current_index;
                 current_register = records[current_index];
+                null_input = false;
+                invalid_input = false;
+                last_state = null;
+                error_info = '';
                 break;
 
             case STATE.MODIFICACION:
                 current_index = current_index;
                 current_register = records[current_index];
+                null_input = false;
+                invalid_input = false;
+                last_state = null;
+                error_info = '';
                 break;
 
             case STATE.BAJA:
                 current_index = current_index;
                 current_register = records[current_index];
+                null_input = false;
+                invalid_input = false;
+                last_state = null;
+                error_info = '';
+                break;
+
+            case STATE.ERROR:
+                current_index = current_index;
+                current_register = records[current_index];
+                null_input = false;
+                invalid_input = false;
+                last_state = last_state;
+                error_info = error_info;
                 break;
         }
     }
@@ -280,7 +365,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 UI.displays.name.value = current_register.name;
                 UI.displays.phone.value = current_register.phone;
-                UI.displays.info.textContent = `${STATE.RECORRIDO}: Revise los registros o elija una opción`;
+                UI.displays.info.textContent = INFO.RECORRIDO;
                 break;
 
             case STATE.ALTA:
@@ -297,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 UI.displays.name.value = '';
                 UI.displays.phone.value = '';
-                UI.displays.info.textContent = `${STATE.ALTA}: Introduzca los datos y pulse [Aceptar]`;
+                UI.displays.info.textContent = INFO.ALTA;
                 break;
 
             case STATE.MODIFICACION:
@@ -314,7 +399,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 UI.displays.name.value = '';
                 UI.displays.phone.value = '';
-                UI.displays.info.textContent = `${STATE.MODIFICACION}: Modifique los datos y pulse [Aceptar]`;
+                UI.displays.info.textContent = INFO.MODIFICACION;
                 break;
 
             case STATE.BAJA:
@@ -331,8 +416,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 UI.displays.name.value = current_register.name;
                 UI.displays.phone.value = current_register.phone;
-                UI.displays.info.textContent = `${STATE.BAJA}: Si está seguro pulse [Aceptar]`;
+                UI.displays.info.textContent = INFO.BAJA;
                 break;
+
+            case STATE.ERROR:
+                UI.displays.name.disabled = true;
+                UI.displays.phone.disabled = true;
+
+                UI.buttons.actions.signup.disabled = true;
+                UI.buttons.actions.modif.disabled = true;
+                UI.buttons.actions.delete.disabled = true;
+                UI.buttons.actions.next.disabled = true;
+                UI.buttons.actions.prev.disabled = true;
+                UI.buttons.actions.accept.disabled = false;
+                UI.buttons.actions.cancel.disabled = true;
+
+                UI.displays.name.value = '';
+                UI.displays.phone.value = '';
+                UI.displays.info.textContent = error_info;
         }
     }
 
