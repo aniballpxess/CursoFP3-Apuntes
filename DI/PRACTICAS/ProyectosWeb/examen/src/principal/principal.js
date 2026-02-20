@@ -80,12 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     /** @type {number} */
     let current_index = 0;
-    /** @type {string} */
-    let new_name = null;
     /** @type {Record} */
     let current_register = null;
-    /** @type {number} */
-    let new_phone = null;
 
     // Functions
     /**
@@ -116,6 +112,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 if (current_state === STATE.MODIFICACION) {
                     modifyData();
+                }
+                if (current_state === STATE.BAJA) {
+                    removeData();
                 }
                 break;
 
@@ -160,8 +159,8 @@ document.addEventListener('DOMContentLoaded', () => {
      *
      */
     function registerData() {
-        new_name = UI.displays.name.textContent;
-        new_phone = UI.displays.phone.textContent;
+        const new_name = UI.displays.name.value;
+        const new_phone = UI.displays.phone.value;
         const record = Record.create(new_name, new_phone);
         records.push(record);
     }
@@ -170,10 +169,14 @@ document.addEventListener('DOMContentLoaded', () => {
      *
      */
     function modifyData() {
-        new_name = UI.displays.name.textContent;
-        new_phone = UI.displays.phone.textContent;
+        const new_name = UI.displays.name.value;
+        const new_phone = UI.displays.phone.value;
         const record = Record.create(new_name, new_phone);
         records[current_index] = record;
+    }
+
+    function removeData() {
+        records = records.filter(rec => rec !== current_register);
     }
 
     /**
@@ -239,29 +242,21 @@ document.addEventListener('DOMContentLoaded', () => {
             case STATE.RECORRIDO:
                 current_index = current_index;
                 current_register = records[current_index];
-                new_name = null;
-                new_phone = null;
                 break;
 
             case STATE.ALTA:
                 current_index = current_index;
                 current_register = records[current_index];
-                new_name = new_name;
-                new_phone = new_phone;
                 break;
 
             case STATE.MODIFICACION:
                 current_index = current_index;
                 current_register = records[current_index];
-                new_name = new_name;
-                new_phone = new_phone;
                 break;
 
             case STATE.BAJA:
                 current_index = current_index;
                 current_register = records[current_index];
-                new_name = null;
-                new_phone = null;
                 break;
         }
     }
@@ -283,8 +278,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 UI.buttons.actions.accept.disabled = true;
                 UI.buttons.actions.cancel.disabled = true;
 
-                UI.displays.name.textContent = current_register.name;
-                UI.displays.phone.textContent = current_register.phone;
+                UI.displays.name.value = current_register.name;
+                UI.displays.phone.value = current_register.phone;
                 UI.displays.info.textContent = `${STATE.RECORRIDO}: Revise los registros o elija una opción`;
                 break;
 
@@ -300,8 +295,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 UI.buttons.actions.accept.disabled = false;
                 UI.buttons.actions.cancel.disabled = false;
 
-                UI.displays.name.textContent = '';
-                UI.displays.phone.textContent = '';
+                UI.displays.name.value = '';
+                UI.displays.phone.value = '';
                 UI.displays.info.textContent = `${STATE.ALTA}: Introduzca los datos y pulse [Aceptar]`;
                 break;
 
@@ -317,8 +312,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 UI.buttons.actions.accept.disabled = false;
                 UI.buttons.actions.cancel.disabled = false;
 
-                UI.displays.name.textContent = '';
-                UI.displays.phone.textContent = '';
+                UI.displays.name.value = '';
+                UI.displays.phone.value = '';
                 UI.displays.info.textContent = `${STATE.MODIFICACION}: Modifique los datos y pulse [Aceptar]`;
                 break;
 
@@ -334,8 +329,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 UI.buttons.actions.accept.disabled = false;
                 UI.buttons.actions.cancel.disabled = false;
 
-                UI.displays.name.textContent = current_register.name;
-                UI.displays.phone.textContent = current_register.phone;
+                UI.displays.name.value = current_register.name;
+                UI.displays.phone.value = current_register.phone;
                 UI.displays.info.textContent = `${STATE.BAJA}: Si está seguro pulse [Aceptar]`;
                 break;
         }
@@ -365,11 +360,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- INCIALIZE INTERFACE ---
     current_state = DEFAULT_STATE;
-    records.push(Record.create('PEPE', 987654536));
-    records.push(Record.create('MARIA', 19237451));
-    records.push(Record.create('RAMON', 123457689));
-    records.push(Record.create('SOFIA', 122234123));
-    records.push(Record.create('MIGUEL', 578323612));
+    current_index = 0;
+    records.push(Record.create('PEPE', 987436));
+    records.push(Record.create('MARIA', 192301));
+    records.push(Record.create('RAMON', 123489));
+    records.push(Record.create('SOFIA', 122523));
+    records.push(Record.create('MIGUEL', 578612));
     updateInternals();
     updateExternals();
 

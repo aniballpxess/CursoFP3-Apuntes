@@ -10,19 +10,19 @@ export class Record {
     /**
      * Creates a new Record.
      * @param {string} name - Name of the drink.
-     * @param {number} phone - price of the drink.
+     * @param {string} phone - price of the drink.
      */
     constructor(name, phone) {
         /** @type {string} */
         this.name = name;
-        /** @type {number} */
+        /** @type {string} */
         this.phone = phone;
     }
 
     /**
      * Factory: creates a new Record using current date/time and given data.
      * @param {string} new_name - Name of the drink.
-     * @param {number} new_phone - price of the drink.
+     * @param {string} new_phone - price of the drink.
      * @returns {Record} Newly created Record instance.
      */
     static create(new_name, new_phone) {
