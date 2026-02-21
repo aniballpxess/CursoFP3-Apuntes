@@ -2,7 +2,7 @@
 import { Record } from '../record.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- UI Elements ------------------------------------------------------ //
+    // UI ELEMENTS ---------------------------------------------------------- //
 
     const UI = {
         buttons: {
@@ -32,11 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
             info: document.getElementById('display-03'),
         },
     };
+
     // ---------------------------------------------------------------------- //
 
-    // --- LOCAL DEFINITIONS ------------------------------------------------ //
+    // LOCAL DEFINITIONS ---------------------------------------------------- //
 
-    // Constants
+    // --- Constants --- //
+
     /** @enum {string} */
     const STATE = Object.freeze({
         RECORRIDO: 'RECORRIDO',
@@ -78,7 +80,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /** @type {RegExp} */
     const NUMBER_REGEX = /^\d+$/;
 
-    // Variables
+    // --- Variables --- //
+
     /** @type {STATE} */
     let current_state = null;
     /** @type {ACTION} */
@@ -92,9 +95,7 @@ document.addEventListener('DOMContentLoaded', () => {
     /** @type {STATE} */
     let last_state = null;
     /** @type {boolean} */
-    let null_input = false;
-    /** @type {boolean} */
-    let invalid_input = false;
+    let input_error = false;
 
     /** @type {Record[]} */
     let records = [];
@@ -103,7 +104,8 @@ document.addEventListener('DOMContentLoaded', () => {
     /** @type {number} */
     let current_index = 0;
 
-    // Functions
+    // --- Functions --- //
+
     /**
      * @param {ACTION} action - the action to be executed by the event
      * @param {HTMLInputElement | HTMLButtonElement} trigger - the trigger that activated the event
@@ -182,12 +184,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const new_name = UI.displays.name.value;
         const new_phone = UI.displays.phone.value;
         if (new_name.length === 0 || new_phone.length === 0) {
-            null_input = true;
+            input_error = true;
+            error_info = INFO.ERROR_VACIO;
             return;
         }
         const invalid_phone = !NUMBER_REGEX.test(new_phone);
         if (invalid_phone) {
-            invalid_input = true;
+            input_error = true;
+            error_info = INFO.ERROR_INVALIDO;
             return;
         }
         const record = Record.create(new_name, new_phone);
@@ -201,12 +205,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const new_name = UI.displays.name.value;
         const new_phone = UI.displays.phone.value;
         if (new_name.length === 0 || new_phone.length === 0) {
-            null_input = true;
+            input_error = true;
+            error_info = INFO.ERROR_VACIO;
             return;
         }
         const invalid_phone = !NUMBER_REGEX.test(new_phone);
         if (invalid_phone) {
-            invalid_input = true;
+            input_error = true;
+            error_info = INFO.ERROR_INVALIDO;
             return;
         }
         const record = Record.create(new_name, new_phone);
@@ -224,16 +230,9 @@ document.addEventListener('DOMContentLoaded', () => {
      *
      */
     function updateState() {
-        if (null_input) {
+        if (input_error) {
             last_state = current_state;
             current_state = STATE.ERROR;
-            error_info = INFO.ERROR_VACIO;
-            return;
-        }
-        if (invalid_input) {
-            last_state = current_state;
-            current_state = STATE.ERROR;
-            error_info = INFO.ERROR_INVALIDO;
             return;
         }
         switch (current_state) {
@@ -302,8 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case STATE.RECORRIDO:
                 current_index = current_index;
                 current_register = records[current_index];
-                null_input = false;
-                invalid_input = false;
+                input_error = false;
                 last_state = null;
                 error_info = '';
                 break;
@@ -311,8 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case STATE.ALTA:
                 current_index = current_index;
                 current_register = records[current_index];
-                null_input = false;
-                invalid_input = false;
+                input_error = false;
                 last_state = null;
                 error_info = '';
                 break;
@@ -320,8 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case STATE.MODIFICACION:
                 current_index = current_index;
                 current_register = records[current_index];
-                null_input = false;
-                invalid_input = false;
+                input_error = false;
                 last_state = null;
                 error_info = '';
                 break;
@@ -329,8 +325,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case STATE.BAJA:
                 current_index = current_index;
                 current_register = records[current_index];
-                null_input = false;
-                invalid_input = false;
+                input_error = false;
                 last_state = null;
                 error_info = '';
                 break;
@@ -338,8 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
             case STATE.ERROR:
                 current_index = current_index;
                 current_register = records[current_index];
-                null_input = false;
-                invalid_input = false;
+                input_error = false;
                 last_state = last_state;
                 error_info = error_info;
                 break;
@@ -437,40 +431,47 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // -------------------------------------------------------------------------- //
+    // ---------------------------------------------------------------------- //
 
-    // --- EVENT HANDLING ---
+    // EVENT HANDLING ------------------------------------------------------- //
 
-    // Action buttons
+    // --- Action buttons --- //
+
     UI.buttons.actions.signup.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.DAR_ALTA, ev.currentTarget));
     UI.buttons.actions.modif.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.MODIFICAR, ev.currentTarget));
     UI.buttons.actions.delete.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.DAR_BAJA, ev.currentTarget));
+
     UI.buttons.actions.next.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.NEXT, ev.currentTarget));
     UI.buttons.actions.prev.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.PREV, ev.currentTarget));
+
     UI.buttons.actions.accept.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.ACEPTAR, ev.currentTarget));
     UI.buttons.actions.cancel.addEventListener(EVENT.CLICK, ev => eventsHandler(ACTION.CANCELAR, ev.currentTarget));
 
-    // Storage change
+    // --- Storage change --- //
+
     // window.addEventListener(EVENT.STORAGE, ev => {
     //     if (ev.key === 'records') {
     //         records = loadRecords();
     //     }
     // });
 
-    // -------------------------------------------------------------------------- //
+    // ---------------------------------------------------------------------- //
 
-    // --- INCIALIZE INTERFACE ---
+    // INCIALIZE INTERFACE -------------------------------------------------- //
+
     current_state = DEFAULT_STATE;
     current_index = 0;
-    records.push(Record.create('PEPE', 987436));
-    records.push(Record.create('MARIA', 192301));
-    records.push(Record.create('RAMON', 123489));
-    records.push(Record.create('SOFIA', 122523));
-    records.push(Record.create('MIGUEL', 578612));
+    records.push(Record.create('PEPE', '987436'));
+    records.push(Record.create('MARIA', '192301'));
+    records.push(Record.create('RAMON', '123489'));
+    records.push(Record.create('SOFIA', '122523'));
+    records.push(Record.create('MIGUEL', '578612'));
     updateInternals();
     updateExternals();
 
-    // -------------------------------------------------------------------------- //
+    // ---------------------------------------------------------------------- //
 
-    // --- TESTING ---
+    // TESTING -------------------------------------------------------------- //
+
+    // ---------------------------------------------------------------------- //
 });
