@@ -17,14 +17,17 @@ img {
   object-fit: contain;
   display: block;
 }
-legend {
-  font-weight: bold;
-  font-size: 1.2rem;
-  color: #33f;
+label {
+  text-wrap-mode: wrap;
 }
 h1 {
-  font-size: 2.4rem;
+  font-weight: bold;
   margin-block: 0.4rem;
+  color: #33f;
+}
+h2 {
+  font-weight: bold;
+  margin-block: 0.2rem;
   color: #33f;
 }
 table {
@@ -72,8 +75,11 @@ td {
   line-height: 100%;
 }
 
-.font-size-M {
+.font-size-S {
   font-size: 1.2rem;
+}
+.font-size-M {
+  font-size: 1.6rem;
 }
 .font-size-L {
   font-size: 2.4rem;
@@ -305,31 +311,31 @@ td {
 
 /* Main ------------------------------------------------ */
 #main {
-  grid-template-columns: repeat(16, 2.4rem);
+  grid-template-columns: repeat(20, 2.4rem);
   grid-template-rows: repeat(12, 2.4rem);
 }
-#title {
-  grid-column: 1 / span 16;
+#main-title {
+  grid-column: 1 / span 20;
   grid-row: 1 / span 2;
 }
 #first-section {
-  grid-column: 1 / span 12;
+  grid-column: 1 / span 16;
   grid-row: 3 / span 4;
 }
 #second-section {
-  grid-column: 13 / span 4;
+  grid-column: 17 / span 4;
   grid-row: 3 / span 4;
 }
 #third-section {
-  grid-column: 1 / span 16;
+  grid-column: 1 / span 20;
   grid-row: 7 / span 2;
 }
 #fourth-section {
-  grid-column: 1 / span 16;
+  grid-column: 1 / span 20;
   grid-row: 9 / span 2;
 }
 #fifth-section {
-  grid-column: 1 / span 16;
+  grid-column: 1 / span 20;
   grid-row: 11 / span 2;
 }
 /* ----------------------------------------------------- */
@@ -337,83 +343,103 @@ td {
 /* First Section --------------------------------------- */
 #first-section {
   grid-template-rows: repeat(4, calc(100% / 4));
-  grid-template-rows: repeat(2, calc(100% / 2));
+  grid-template-rows: repeat(3, calc(100% / 3));
+}
+#first-title {
+  grid-column: 1;
+  grid-row: 1;
 }
 #label-01 {
   grid-column: 1;
-  grid-row: 1;
+  grid-row: 2;
 }
 #label-02 {
   grid-column: 1;
-  grid-row: 2;
+  grid-row: 3;
 }
 #display-01 {
   grid-column: 2 / span 3;
-  grid-row: 1;
+  grid-row: 2;
 }
 #display-02 {
   grid-column: 2 / span 3;
-  grid-row: 2;
+  grid-row: 3;
 }
 /* ----------------------------------------------------- */
 
 /* Second Section --------------------------------------- */
 #second-section {
   grid-template-columns: 100%;
-  grid-template-rows: repeat(3, calc(100% / 3));
+  grid-template-rows: repeat(4, calc(100% / 4));
 }
-#act-btn-01 {
+#second-title {
   grid-column: 1;
   grid-row: 1;
 }
-#act-btn-02 {
+#act-btn-01 {
   grid-column: 1;
   grid-row: 2;
 }
-#act-btn-03 {
+#act-btn-02 {
   grid-column: 1;
   grid-row: 3;
+}
+#act-btn-03 {
+  grid-column: 1;
+  grid-row: 4;
 }
 /* ----------------------------------------------------- */
 
 /* Third Section --------------------------------------- */
 #third-section {
   grid-template-columns: repeat(5, calc(100% / 5));
-  grid-template-rows: 100%;
+  grid-template-rows: repeat(2, calc(100% / 2));
 }
-#act-btn-04 {
+#third-title {
   grid-column: 1;
   grid-row: 1;
 }
+#act-btn-04 {
+  grid-column: 1;
+  grid-row: 2;
+}
 #act-btn-05 {
   grid-column: 2;
-  grid-row: 1;
+  grid-row: 2;
 }
 /* ----------------------------------------------------- */
 
 /* Fifth Section --------------------------------------- */
 #fouth-section {
   grid-template-columns: 100%;
-  grid-template-rows: 100%;
+  grid-template-rows: repeat(2, calc(100% / 2));
+}
+#fourth-title {
+  grid-column: 1;
+  grid-row: 1;
 }
 #display-03 {
   grid-column: 1;
-  grid-row: 1;
+  grid-row: 2;
 }
 /* ----------------------------------------------------- */
 
 /* Fifth Section --------------------------------------- */
 #fifth-section {
   grid-template-columns: repeat(5, calc(100% / 5));
-  grid-template-rows: 100%;
+  grid-template-rows: repeat(2, calc(100% / 2));
 }
-#act-btn-06 {
+#fifth-title {
   grid-column: 1;
   grid-row: 1;
 }
+#act-btn-06 {
+  grid-column: 1;
+  grid-row: 2;
+}
 #act-btn-07 {
   grid-column: 2;
-  grid-row: 1;
+  grid-row: 2;
 }
 /* ----------------------------------------------------- */
 
