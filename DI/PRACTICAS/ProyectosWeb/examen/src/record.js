@@ -1,46 +1,44 @@
 /**
  * @file record.js
- * @description Defines the Record type and helpers for creating, loading, and saving records.
+ * @description Defines the Record class and persistence helpers.
  */
 
 /**
- * Represents a single action record.
+ * @typedef {object} RecordData
+ * @property {string} name - Name of the person.
+ * @property {string} phone - Phone number.
  */
+
 export class Record {
     /**
-     * Creates a new Record.
-     * @param {string} name - Name of the drink.
-     * @param {string} phone - price of the drink.
+     * @param {string} name - Name of the person associated with the Record.
+     * @param {string} phone - Phone number associated with the Record.
      */
     constructor(name, phone) {
-        /** @type {string} */
         this.name = name;
-        /** @type {string} */
         this.phone = phone;
     }
 
     /**
-     * Factory: creates a new Record using current date/time and given data.
-     * @param {string} new_name - Name of the drink.
-     * @param {string} new_phone - price of the drink.
-     * @returns {Record} Newly created Record instance.
+     * Factory: creates a new Record instance.
+     * @param {string} new_name - Name for the new Record.
+     * @param {string} new_phone - Phone number for the new Record.
+     * @returns {Record} Newly created Record
      */
     static create(new_name, new_phone) {
         return new Record(new_name, new_phone);
     }
 
     /**
-     * Restore an Record from a plain object (after JSON.parse).
-     * @param {Partial<Record>} obj Object representing an Record.
-     * @returns {Record | null} Record instance if it is one, null otherwise.
+     * Restore a Record from an object previously extracted from a string with JSON format
+     * @param {RecordData} obj - Object data extracted from JSON
+     * @returns {Record | null} New Record instance or null if the parameter was not a valid object
      */
     static fromJSON(obj) {
         if (!obj || typeof obj !== 'object') {
             return null;
         }
-        const record = new Record();
-        Object.assign(record, obj);
-        return record;
+        return new Record(obj.name, obj.phone);
     }
 }
 

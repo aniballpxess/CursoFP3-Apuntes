@@ -1,4 +1,5 @@
 /* eslint-disable no-self-assign */
+/* @ts-check */
 import { Record } from '../record.js';
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -89,20 +90,22 @@ document.addEventListener('DOMContentLoaded', () => {
     /** @type {HTMLInputElement | HTMLButtonElement} */
     let current_trigger = null;
 
+    /** @type {boolean} */
+    let input_error_occurred = false;
+
+    /** @type {number} */
+    let current_index = 0;
+
     /** @type {string} */
     let error_info = '';
 
     /** @type {STATE} */
     let last_state = null;
-    /** @type {boolean} */
-    let input_error = false;
 
     /** @type {Record[]} */
     let records = [];
     /** @type {Record} */
     let current_register = null;
-    /** @type {number} */
-    let current_index = 0;
 
     // --- Functions --- //
 
@@ -130,9 +133,19 @@ document.addEventListener('DOMContentLoaded', () => {
         switch (current_action) {
             case ACTION.ACEPTAR:
                 if (current_state === STATE.ALTA) {
+                    getData();
+                    checkData();
+                    if (input_error_occurred) {
+                        break;
+                    }
                     registerData();
                 }
                 if (current_state === STATE.MODIFICACION) {
+                    getData();
+                    checkData();
+                    if (input_error_occurred) {
+                        break;
+                    }
                     modifyData();
                 }
                 if (current_state === STATE.BAJA) {
@@ -178,43 +191,49 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     *
+     * @returns {string[]} New data in a string array
      */
-    function registerData() {
+    function getData() {
         const new_name = UI.displays.name.value;
         const new_phone = UI.displays.phone.value;
+        return [new_name, new_phone];
+    }
+
+    /**
+     * @param {string[]} new_data - New data to be checked
+     */
+    function checkData(new_data) {
+        const new_name = new_data[0];
+        const new_phone = new_data[1];
         if (new_name.length === 0 || new_phone.length === 0) {
-            input_error = true;
+            input_error_occurred = true;
             error_info = INFO.ERROR_VACIO;
             return;
         }
         const invalid_phone = !NUMBER_REGEX.test(new_phone);
         if (invalid_phone) {
-            input_error = true;
+            input_error_occurred = true;
             error_info = INFO.ERROR_INVALIDO;
             return;
         }
+    }
+
+    /**
+     * @param {string[]} new_data - New data to be registered
+     */
+    function registerData(new_data) {
+        const new_name = new_data[0];
+        const new_phone = new_data[1];
         const record = Record.create(new_name, new_phone);
         records.push(record);
     }
 
     /**
-     *
+     * @param {string[]} new_data - New data to modify the current record
      */
-    function modifyData() {
-        const new_name = UI.displays.name.value;
-        const new_phone = UI.displays.phone.value;
-        if (new_name.length === 0 || new_phone.length === 0) {
-            input_error = true;
-            error_info = INFO.ERROR_VACIO;
-            return;
-        }
-        const invalid_phone = !NUMBER_REGEX.test(new_phone);
-        if (invalid_phone) {
-            input_error = true;
-            error_info = INFO.ERROR_INVALIDO;
-            return;
-        }
+    function modifyData(new_data) {
+        const new_name = new_data[0];
+        const new_phone = new_data[1];
         const record = Record.create(new_name, new_phone);
         records[current_index] = record;
     }
@@ -230,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
      *
      */
     function updateState() {
-        if (input_error) {
+        if (input_error_occurred) {
             last_state = current_state;
             current_state = STATE.ERROR;
             return;
@@ -299,43 +318,43 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateInternals() {
         switch (current_state) {
             case STATE.RECORRIDO:
+                input_error_occurred = false;
                 current_index = current_index;
-                current_register = records[current_index];
-                input_error = false;
-                last_state = null;
                 error_info = '';
+                last_state = null;
+                current_register = records[current_index];
                 break;
 
             case STATE.ALTA:
+                input_error_occurred = false;
                 current_index = current_index;
-                current_register = records[current_index];
-                input_error = false;
-                last_state = null;
                 error_info = '';
+                last_state = null;
+                current_register = records[current_index];
                 break;
 
             case STATE.MODIFICACION:
+                input_error_occurred = false;
                 current_index = current_index;
-                current_register = records[current_index];
-                input_error = false;
-                last_state = null;
                 error_info = '';
+                last_state = null;
+                current_register = records[current_index];
                 break;
 
             case STATE.BAJA:
+                input_error_occurred = false;
                 current_index = current_index;
-                current_register = records[current_index];
-                input_error = false;
-                last_state = null;
                 error_info = '';
+                last_state = null;
+                current_register = records[current_index];
                 break;
 
             case STATE.ERROR:
+                input_error_occurred = false;
                 current_index = current_index;
-                current_register = records[current_index];
-                input_error = false;
-                last_state = last_state;
                 error_info = error_info;
+                last_state = last_state;
+                current_register = records[current_index];
                 break;
         }
     }
