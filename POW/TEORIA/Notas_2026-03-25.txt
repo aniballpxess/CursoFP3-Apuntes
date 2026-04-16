@@ -1,0 +1,4 @@
+SEO useful techs:
+  - keyword = "cafeterias"
+  - keyword (longtail) = "mejores cafeterias en madrid"
+  - minify CSS & JS (*.js => *.min.js)
